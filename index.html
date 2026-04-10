@@ -9,105 +9,56 @@
     <style>
         * { box-sizing: border-box; }
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #050810;
-            color: #FFFFFF;
-            font-family: 'Noto Sans KR', sans-serif;
-            overflow: hidden;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #050810; color: #FFFFFF;
+            font-family: 'Noto Sans KR', sans-serif; overflow: hidden;
         }
-
         #deck-viewport {
-            width: 100%;
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            width: 100%; height: 100vh;
+            overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth;
+            scrollbar-width: none; -ms-overflow-style: none;
         }
         #deck-viewport::-webkit-scrollbar { display: none; }
-
         .slide-section {
-            width: 100%;
-            height: 100vh;
-            scroll-snap-align: start;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            width: 100%; height: 100vh; scroll-snap-align: start;
+            display: flex; justify-content: center; align-items: center;
+            position: relative; overflow: hidden;
         }
-
         .slide-container {
-            width: 1280px;
-            height: 720px;
-            position: relative;
-            flex-shrink: 0;
-            transform-origin: center;
+            width: 1280px; height: 720px; position: relative;
+            flex-shrink: 0; transform-origin: center;
         }
-
-        /* Side Navigation Dots */
         #side-nav {
-            position: fixed;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            z-index: 10000;
+            position: fixed; right: 40px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 16px; z-index: 10000;
         }
         .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 12px; height: 12px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .nav-dot:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.2); }
         .nav-dot.active {
-            background: #3B82F6;
-            transform: scale(1.5);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
-            border-color: #60A5FA;
+            background: #3B82F6; transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); border-color: #60A5FA;
         }
-
-        /* Nav Arrows */
         .page-arrow {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 28px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 10px;
+            position: fixed; left: 50%; transform: translateX(-50%);
+            z-index: 10000; color: rgba(255, 255, 255, 0.2);
+            font-size: 28px; cursor: pointer; transition: all 0.3s ease; padding: 10px;
         }
         .page-arrow:hover { color: #3B82F6; transform: translateX(-50%) scale(1.2); }
         .up-arrow { top: 20px; }
         .down-arrow { bottom: 20px; }
         .page-arrow.hidden { opacity: 0; pointer-events: none; }
-
-        @media (max-width: 768px) {
-            #side-nav { right: 20px; }
-            .nav-dot { width: 10px; height: 10px; }
-            .page-arrow { font-size: 20px; }
-        }
     </style>
 </head>
 <body>
     <div id="side-nav"></div>
     <div id="up-nav" class="page-arrow up-arrow hidden"><i class="fas fa-chevron-up"></i></div>
     <div id="down-nav" class="page-arrow down-arrow"><i class="fas fa-chevron-down"></i></div>
-
     <div id="deck-viewport">
-        <section class="slide-section" id="section-1"><div class="slide-container"
+        <section class="slide-section" id="section-1">
+            <div class="slide-container"
         style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Background Ambient Shapes -->
         <div data-object="true" data-object-type="shape"
@@ -149,7 +100,10 @@
                 style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
                 설립: [입력]    |    위치: [입력]    |    연락: [입력]</p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-2"><div class="slide-container"
+    </div>
+        </section>
+        <section class="slide-section" id="section-2">
+            <div class="slide-container"
         style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Title Area -->
         <div data-object="true" data-object-type="textbox"
@@ -280,7 +234,10 @@
             <p style="margin: 0; color: #475569; font-size: 14px; font-weight: 400;">Fast Build | Secure Architecture |
                 Operable Product | Compliance Ready</p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-3"><div class="slide-container"
+    </div>
+        </section>
+        <section class="slide-section" id="section-3">
+            <div class="slide-container"
         style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header Section -->
         <div data-object="true" data-object-type="textbox"
@@ -402,7 +359,10 @@
                 style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
                 Security Gap   |   Scaling Risk   |   Data Complexity   |   Trust Deficit</p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-4"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-4">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header Section -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -469,7 +429,10 @@
                 AI-assisted Build   |   Senior Review   |   Secure Pipeline   |   Production-grade
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-5"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-5">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -543,7 +506,10 @@
                 Consumer AI First   |   Reusable Data Engine   |   B2B API Expansion   |   Web3 Capability
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-6"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-6">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -626,7 +592,10 @@
                 CheckLab.ai   |   GFEX   |   Consumer AI   |   Secure Web3
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-7"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-7">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -702,7 +671,10 @@
                 CheckLab Users [입력]   |   MAU [입력]   |   Paid Conv. [입력]%   |   B2B Pipeline [입력]건
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-8"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-8">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -784,7 +756,10 @@
                 Consumer AI Wedge   |   Enterprise AI Demand   |   Bottom-up Expansion   |   Multi-market Engine
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-9"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-9">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -859,7 +834,10 @@
                 CEO: Strategy & BD   |   CTO: 20+ yrs Engineering   |   CLO: NY Bar   |   3-person Master Team
             </p>
         </div>
-    </div</section>\n<section class="slide-section" id="section-10"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+    </div>
+        </section>
+        <section class="slide-section" id="section-10">
+            <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Header -->
         <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
             <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
@@ -950,9 +928,10 @@
                 Raise 5억 원   |   12-Month Runway [입력]   |   Paid Users [입력]   |   B2B Pilots [입력]개
             </p>
         </div>
-    </div</section>\n
     </div>
+        </section>
 
+    </div>
     <script>
         (function() {
             const viewport = document.getElementById('deck-viewport');
@@ -960,67 +939,38 @@
             const sideNav = document.getElementById('side-nav');
             const upNav = document.getElementById('up-nav');
             const downNav = document.getElementById('down-nav');
-            
             let currentIdx = 0;
-
-            // Generate dots
             sections.forEach((_, i) => {
                 const dot = document.createElement('div');
                 dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => {
-                    viewport.scrollTo({ top: sections[i].offsetTop, behavior: 'smooth' });
-                };
+                dot.onclick = () => viewport.scrollTo({ top: sections[i].offsetTop, behavior: 'smooth' });
                 sideNav.appendChild(dot);
             });
-
-            // Update UI on scroll
             viewport.addEventListener('scroll', () => {
                 const scrollPos = viewport.scrollTop;
                 const winHeight = window.innerHeight;
                 currentIdx = Math.round(scrollPos / winHeight);
-                
-                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentIdx);
-                });
-
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentIdx));
                 upNav.classList.toggle('hidden', currentIdx === 0);
                 downNav.classList.toggle('hidden', currentIdx === sections.length - 1);
             });
-
-            // Click handlers
-            upNav.onclick = () => {
-                if (currentIdx > 0) viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
-            };
-            downNav.onclick = () => {
-                if (currentIdx < sections.length - 1) viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
-            };
-
-            // Keyboard/Space
+            upNav.onclick = () => { if (currentIdx > 0) viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' }); };
+            downNav.onclick = () => { if (currentIdx < sections.length - 1) viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' }); };
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') {
-                    if (currentIdx < sections.length - 1) {
-                        e.preventDefault();
-                        viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
-                    }
-                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
-                    if (currentIdx > 0) {
-                        e.preventDefault();
-                        viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
-                    }
+                const keys = ['ArrowDown', ' ', 'ArrowRight', 'PageDown'];
+                const upKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
+                if (keys.includes(e.key) && currentIdx < sections.length - 1) {
+                    e.preventDefault(); viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
+                } else if (upKeys.includes(e.key) && currentIdx > 0) {
+                    e.preventDefault(); viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
                 }
             });
-
-            // Responsive Scaling
             function scaleDeck() {
                 const containers = document.querySelectorAll('.slide-container');
-                const winWidth = window.innerWidth;
-                const winHeight = window.innerHeight;
+                const winWidth = window.innerWidth, winHeight = window.innerHeight;
                 const scale = Math.min(winWidth / 1280, winHeight / 720) * 0.95;
-                containers.forEach(el => {
-                    el.style.transform = `scale(${scale})`;
-                });
+                containers.forEach(el => el.style.transform = `scale(${scale})`);
             }
-
             window.addEventListener('resize', scaleDeck);
             scaleDeck();
         })();
