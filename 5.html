@@ -4,9 +4,7 @@
     <meta charset="utf-8" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&amp;family=Gothic+A1:wght@300;400;500;700;800&amp;display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
-    <style>
-        body { margin: 0; padding: 0; overflow: hidden; background-color: #050810; }
-    </style>
+    
 </head>
 <body>
     <div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
@@ -85,7 +83,24 @@
         </div>
     </div>
     
+    
+
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #050810;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .slide-container {
+            flex-shrink: 0;
+            transform-origin: center;
+        }
+
         .nav-btn {
             position: fixed;
             top: 50%;
@@ -119,7 +134,6 @@
         .nav-btn.disabled {
             display: none !important;
         }
-        /* Mobile adjustment */
         @media (max-width: 768px) {
             .nav-btn { width: 55px; height: 55px; font-size: 22px; }
             .prev-btn { left: 15px; }
@@ -132,11 +146,10 @@
 
     <script>
         (function() {
+            // Navigation Logic
             function navigate(direction) {
                 const currentPath = window.location.pathname;
                 let fileName = currentPath.split('/').pop() || 'index.html';
-                
-                // Handle index.html or empty path as page 1
                 let currentPage = 1;
                 if (fileName.includes('.html') && fileName !== 'index.html') {
                     currentPage = parseInt(fileName.replace('.html', '')) || 1;
@@ -153,6 +166,7 @@
                 }
             }
 
+            // Keyboard Support
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
                     navigate('next');
@@ -161,6 +175,7 @@
                 }
             });
 
+            // Button Support
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
 
@@ -176,6 +191,20 @@
 
             prevBtn.addEventListener('click', () => navigate('prev'));
             nextBtn.addEventListener('click', () => navigate('next'));
+
+            // AUTO-SCALING LOGIC
+            function scaleSlider() {
+                const container = document.querySelector('.slide-container');
+                if (!container) return;
+                const winWidth = window.innerWidth;
+                const winHeight = window.innerHeight;
+                // Leave a small margin (0.95) for professional look
+                const scale = Math.min(winWidth / 1280, winHeight / 720) * 0.95;
+                container.style.transform = `scale(${scale})`;
+            }
+
+            window.addEventListener('resize', scaleSlider);
+            scaleSlider();
         })();
     </script>
 </body>

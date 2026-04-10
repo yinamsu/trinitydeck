@@ -1,8 +1,27 @@
 import os
+import re
 
-# High-visibility styling
-btn_style = """
+# Body Centering CSS
+body_centering_style = """
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #050810;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .slide-container {
+            flex-shrink: 0;
+            transform-origin: center;
+        }
+"""
+
+# High-visibility styling (updated)
+btn_style = """
         .nav-btn {
             position: fixed;
             top: 50%;
@@ -36,7 +55,6 @@ btn_style = """
         .nav-btn.disabled {
             display: none !important;
         }
-        /* Mobile adjustment */
         @media (max-width: 768px) {
             .nav-btn { width: 55px; height: 55px; font-size: 22px; }
             .prev-btn { left: 15px; }
@@ -45,18 +63,17 @@ btn_style = """
     </style>
 """
 
-# HTML and JS logic
-new_component = btn_style + """
+# HTML and JS logic (with Auto-Scaling)
+new_component = body_centering_style + btn_style + """
     <div id="prev-btn" class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></div>
     <div id="next-btn" class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></div>
 
     <script>
         (function() {
+            // Navigation Logic
             function navigate(direction) {
                 const currentPath = window.location.pathname;
                 let fileName = currentPath.split('/').pop() || 'index.html';
-                
-                // Handle index.html or empty path as page 1
                 let currentPage = 1;
                 if (fileName.includes('.html') && fileName !== 'index.html') {
                     currentPage = parseInt(fileName.replace('.html', '')) || 1;
@@ -73,6 +90,7 @@ new_component = btn_style + """
                 }
             }
 
+            // Keyboard Support
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
                     navigate('next');
@@ -81,6 +99,7 @@ new_component = btn_style + """
                 }
             });
 
+            // Button Support
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
 
@@ -96,6 +115,20 @@ new_component = btn_style + """
 
             prevBtn.addEventListener('click', () => navigate('prev'));
             nextBtn.addEventListener('click', () => navigate('next'));
+
+            // AUTO-SCALING LOGIC
+            function scaleSlider() {
+                const container = document.querySelector('.slide-container');
+                if (!container) return;
+                const winWidth = window.innerWidth;
+                const winHeight = window.innerHeight;
+                // Leave a small margin (0.95) for professional look
+                const scale = Math.min(winWidth / 1280, winHeight / 720) * 0.95;
+                container.style.transform = `scale(${scale})`;
+            }
+
+            window.addEventListener('resize', scaleSlider);
+            scaleSlider();
         })();
     </script>
 """
@@ -106,13 +139,17 @@ for file in os.listdir('.'):
             with open(file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # SAFE replacement: Add component BEFORE </body>
-            if 'nav-btn' not in content:
-                # First, remove any existing scripts we might have added manually in the reset point
-                # Since we reset to a state WITH the basic script, we should replace that script or just append before </body>
-                # The reset point (08e3d85) had a <script> block with 'window.location.href'
-                import re
-                content = re.sub(r'<script>.*?</script>\s*</body>', new_component + '</body>', content, flags=re.DOTALL)
+            # This time we need to replace the original body style AND the existing button script
+            # 1. Strip the static <style> in <head> if it's there
+            content = re.sub(r'<style>.*?</style>', '', content, flags=re.DOTALL, count=1)
+            
+            # 2. Replace the footer component (Style + HTML + Script)
+            if '<div id="prev-btn"' in content:
+                content = re.sub(r'<style>.*?\.nav-btn.*?</script>', '', content, flags=re.DOTALL)
+            
+            # 3. Insert the new component before </body>
+            if '</body>' in content:
+                 content = re.sub(r'</body>', new_component + '</body>', content)
             
             with open(file, 'w', encoding='utf-8') as f:
                 f.write(content)
