@@ -1,67 +1,7 @@
-<!DOCTYPE html>
+import os
 
-<html lang="ko">
-
-<head>
-    <meta charset="utf-8" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&amp;family=Gothic+A1:wght@300;400;500;700;800&amp;display=swap"
-        rel="stylesheet" />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #050810;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="slide-container"
-        style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
-        <!-- Background Ambient Shapes -->
-        <div data-object="true" data-object-type="shape"
-            style="position: absolute; left: 750px; top: -250px; width: 900px; height: 900px; border-radius: 50%; background-color: rgba(59, 130, 246, 0.04); z-index: 1;">
-        </div>
-        <div data-object="true" data-object-type="shape"
-            style="position: absolute; left: -250px; top: 350px; width: 700px; height: 700px; border-radius: 50%; background-color: rgba(139, 92, 246, 0.04); z-index: 1;">
-        </div>
-        <!-- Eyebrow Subtext -->
-        <div data-object="true" data-object-type="textbox"
-            style="position: absolute; left: 140px; top: 220px; width: 1000px; height: 30px; z-index: 10;">
-            <p
-                style="margin: 0; padding: 0; text-align: center; color: #94A3B8; font-size: 15px; font-weight: 500; letter-spacing: 4px; font-family: 'Gothic A1', sans-serif;">
-                SEED PITCH DECK | AI · DATA INTELLIGENCE · WEB3 INFRASTRUCTURE</p>
-        </div>
-        <!-- Main Title -->
-        <div data-object="true" data-object-type="textbox"
-            style="position: absolute; left: 140px; top: 260px; width: 1000px; height: 110px; z-index: 10;">
-            <p
-                style="margin: 0; padding: 0; text-align: center; color: #FFFFFF; font-size: 80px; font-weight: 800; letter-spacing: -2px; line-height: 1.05; font-family: 'Gothic A1', sans-serif;">
-                Trinity Labs</p>
-        </div>
-        <!-- Accent Line -->
-        <div data-object="true" data-object-type="shape"
-            style="position: absolute; left: 615px; top: 390px; width: 50px; height: 3px; background-color: #3B82F6; z-index: 1;">
-        </div>
-        <!-- One-liner -->
-        <div data-object="true" data-object-type="textbox"
-            style="position: absolute; left: 190px; top: 430px; width: 900px; height: 90px; z-index: 10;">
-            <p
-                style="margin: 0; padding: 0; text-align: center; color: #E2E8F0; font-size: 26px; font-weight: 300; line-height: 1.6; word-break: keep-all;">
-                AI의 속도와 시니어급 설계를 결합해,<br />빠르게 만들되 <span style="font-weight: 700; color: #FFFFFF;">운영 가능한 품질</span>의
-                AI·Web3 제품을 구축합니다.</p>
-        </div>
-        <!-- Footer Meta Information -->
-        <div data-object="true" data-object-type="textbox"
-            style="position: absolute; left: 140px; top: 660px; width: 1000px; height: 30px; z-index: 10;">
-            <p
-                style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
-                설립: [입력]    |    위치: [입력]    |    연락: [입력]</p>
-        </div>
-    </div>
-    
+# High-visibility styling
+btn_style = """
     <style>
         .nav-btn {
             position: fixed;
@@ -103,7 +43,10 @@
             .next-btn { right: 15px; }
         }
     </style>
+"""
 
+# HTML and JS logic
+new_component = btn_style + """
     <div id="prev-btn" class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></div>
     <div id="next-btn" class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></div>
 
@@ -155,6 +98,24 @@
             nextBtn.addEventListener('click', () => navigate('next'));
         })();
     </script>
-</body>
+"""
 
-</html>
+for file in os.listdir('.'):
+    if file.endswith('.html'):
+        try:
+            with open(file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # SAFE replacement: Add component BEFORE </body>
+            if 'nav-btn' not in content:
+                # First, remove any existing scripts we might have added manually in the reset point
+                # Since we reset to a state WITH the basic script, we should replace that script or just append before </body>
+                # The reset point (08e3d85) had a <script> block with 'window.location.href'
+                import re
+                content = re.sub(r'<script>.*?</script>\s*</body>', new_component + '</body>', content, flags=re.DOTALL)
+            
+            with open(file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Updated {file}")
+        except Exception as e:
+            print(f"Failed to update {file}: {e}")
