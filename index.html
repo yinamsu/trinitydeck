@@ -1,17 +1,113 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
     <meta charset="utf-8" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&amp;family=Gothic+A1:wght@300;400;500;700;800&amp;display=swap"
-        rel="stylesheet" />
-    
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Labs Pitch Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&family=Gothic+A1:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050810;
+            color: #FFFFFF;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow: hidden;
+        }
 
+        #deck-viewport {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        #deck-viewport::-webkit-scrollbar { display: none; }
+
+        .slide-section {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            flex-shrink: 0;
+            transform-origin: center;
+        }
+
+        /* Side Navigation Dots */
+        #side-nav {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 10000;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .nav-dot:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.2); }
+        .nav-dot.active {
+            background: #3B82F6;
+            transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+            border-color: #60A5FA;
+        }
+
+        /* Nav Arrows */
+        .page-arrow {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+        }
+        .page-arrow:hover { color: #3B82F6; transform: translateX(-50%) scale(1.2); }
+        .up-arrow { top: 20px; }
+        .down-arrow { bottom: 20px; }
+        .page-arrow.hidden { opacity: 0; pointer-events: none; }
+
+        @media (max-width: 768px) {
+            #side-nav { right: 20px; }
+            .nav-dot { width: 10px; height: 10px; }
+            .page-arrow { font-size: 20px; }
+        }
+    </style>
+</head>
 <body>
-    <div class="slide-container"
+    <div id="side-nav"></div>
+    <div id="up-nav" class="page-arrow up-arrow hidden"><i class="fas fa-chevron-up"></i></div>
+    <div id="down-nav" class="page-arrow down-arrow"><i class="fas fa-chevron-down"></i></div>
+
+    <div id="deck-viewport">
+        <section class="slide-section" id="section-1"><div class="slide-container"
         style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
         <!-- Background Ambient Shapes -->
         <div data-object="true" data-object-type="shape"
@@ -53,132 +149,881 @@
                 style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
                 설립: [입력]    |    위치: [입력]    |    연락: [입력]</p>
         </div>
+    </div</section>\n<section class="slide-section" id="section-2"><div class="slide-container"
+        style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Title Area -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 80px; top: 60px; width: 760px; height: 60px; z-index: 10;">
+            <p
+                style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                왜 지금인가 <span style="color: #64748B; font-weight: 300;">(Why Now)</span></p>
+        </div>
+        <!-- Card 1: Market Change (Background) -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 80px; top: 160px; width: 480px; height: 210px; background-color: #0F172A; border-radius: 12px; border: 1px solid #1E293B; border-left: 4px solid #64748B; z-index: 1;">
+        </div>
+        <!-- Card 1: Header -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 110px; top: 190px; width: 420px; height: 60px; z-index: 10;">
+            <p style="margin: 0; color: #94A3B8; font-size: 14px; font-weight: 700; letter-spacing: 2px;">01. MARKET
+                CHANGE</p>
+            <p style="margin: 5px 0 0 0; color: #F8FAFC; font-size: 24px; font-weight: 700;">생성형 AI 도입의 역설</p>
+        </div>
+        <!-- Card 1: Body -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 110px; top: 260px; width: 420px; height: 90px; z-index: 10;">
+            <p style="margin: 0 0 12px 0; color: #E2E8F0; font-size: 18px; line-height: 1.5; font-weight: 400;">
+                <i class="fas fa-arrow-trend-up"
+                    style="color: #38BDF8; margin-right: 12px; width: 20px; text-align: center;"></i>개발 속도는 폭발적으로 빨라짐
+            </p>
+            <p style="margin: 0; color: #E2E8F0; font-size: 18px; line-height: 1.5; font-weight: 400;">
+                <i class="fas fa-triangle-exclamation"
+                    style="color: #F43F5E; margin-right: 12px; width: 20px; text-align: center;"></i>코드 검증·보안·운영 품질 격차
+                확대
+            </p>
+        </div>
+        <!-- Card 2: Market Need (Background) -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 80px; top: 400px; width: 480px; height: 220px; background-color: #0F172A; border-radius: 12px; border: 1px solid #1E293B; border-left: 4px solid #38BDF8; z-index: 1;">
+        </div>
+        <!-- Card 2: Header -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 110px; top: 430px; width: 420px; height: 60px; z-index: 10;">
+            <p style="margin: 0; color: #38BDF8; font-size: 14px; font-weight: 700; letter-spacing: 2px;">02. MARKET
+                NEED</p>
+            <p style="margin: 5px 0 0 0; color: #F8FAFC; font-size: 24px; font-weight: 700;">시장의 새로운 요구 기준</p>
+        </div>
+        <!-- Card 2: Body -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 110px; top: 500px; width: 420px; height: 100px; z-index: 10;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background-color: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: #38BDF8; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 14px; width: 85px; text-align: center;">FAST</span>
+                    <span style="color: #E2E8F0; font-size: 17px; font-weight: 400;">압도적인 제품 출시 속도</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background-color: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: #38BDF8; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 14px; width: 85px; text-align: center;">SAFE</span>
+                    <span style="color: #E2E8F0; font-size: 17px; font-weight: 400;">안정적인 아키텍처와 강력한 보안</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span
+                        style="background-color: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: #38BDF8; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 14px; width: 85px; text-align: center;">COMPLIANT</span>
+                    <span style="color: #E2E8F0; font-size: 17px; font-weight: 400;">글로벌 규제 및 컴플라이언스 대응</span>
+                </div>
+            </div>
+        </div>
+        <!-- Center Connecting Arrow -->
+        <div data-object="true" data-object-type="icon"
+            style="position: absolute; left: 590px; top: 360px; width: 60px; height: 60px; z-index: 10;">
+            <div
+                style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background-color: #1E293B; border-radius: 50%; border: 4px solid #050810;">
+                <i class="fas fa-arrow-right" style="color: #60A5FA; font-size: 24px;"></i>
+            </div>
+        </div>
+        <!-- Card 3: Trinity Solution (Background) -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 680px; top: 160px; width: 520px; height: 460px; background-color: #172554; border-radius: 16px; border: 1px solid #3B82F6; z-index: 1;">
+        </div>
+        <!-- Card 3: Glow Effect -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 680px; top: 160px; width: 520px; height: 460px; border-radius: 16px; box-shadow: 0 0 60px rgba(59, 130, 246, 0.15); z-index: 0;">
+        </div>
+        <!-- Card 3: Header -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 730px; top: 210px; width: 420px; height: 70px; z-index: 10;">
+            <p style="margin: 0; color: #93C5FD; font-size: 14px; font-weight: 700; letter-spacing: 2px;">03. THE
+                SOLUTION</p>
+            <p style="margin: 8px 0 0 0; color: #FFFFFF; font-size: 32px; font-weight: 800; line-height: 1.3;">Trinity
+                Labs의 해법</p>
+        </div>
+        <!-- Card 3: Box 1 (Background) -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 720px; top: 310px; width: 440px; height: 110px; background-color: rgba(15, 23, 42, 0.7); border-radius: 10px; border: 1px solid #1E3A8A; z-index: 2;">
+        </div>
+        <!-- Card 3: Box 1 (Content) -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 745px; top: 335px; width: 390px; height: 60px; z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <div
+                    style="width: 44px; height: 44px; border-radius: 8px; background-color: rgba(59, 130, 246, 0.2); display: flex; justify-content: center; align-items: center;">
+                    <i class="fas fa-layer-group" style="color: #60A5FA; font-size: 22px;"></i>
+                </div>
+                <div>
+                    <p style="margin: 0; color: #FFFFFF; font-size: 20px; font-weight: 700;">Human-in-the-loop 검증</p>
+                    <p style="margin: 4px 0 0 0; color: #94A3B8; font-size: 15px;">AI-native 개발 속도에 시니어급 검증 체계를 결합</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3: Box 2 (Background) -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 720px; top: 440px; width: 440px; height: 110px; background-color: rgba(15, 23, 42, 0.7); border-radius: 10px; border: 1px solid #1E3A8A; z-index: 2;">
+        </div>
+        <!-- Card 3: Box 2 (Content) -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 745px; top: 465px; width: 390px; height: 60px; z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <div
+                    style="width: 44px; height: 44px; border-radius: 8px; background-color: rgba(59, 130, 246, 0.2); display: flex; justify-content: center; align-items: center;">
+                    <i class="fas fa-rocket" style="color: #60A5FA; font-size: 22px;"></i>
+                </div>
+                <div>
+                    <p style="margin: 0; color: #FFFFFF; font-size: 20px; font-weight: 700;">정예 실행 조직</p>
+                    <p style="margin: 4px 0 0 0; color: #94A3B8; font-size: 15px;">출시 속도와 운영 품질을 동시에 달성하는 빌더 그룹</p>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Summary Text -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 80px; top: 660px; width: 1000px; height: 20px; z-index: 10;">
+            <p style="margin: 0; color: #475569; font-size: 14px; font-weight: 400;">Fast Build | Secure Architecture |
+                Operable Product | Compliance Ready</p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-3"><div class="slide-container"
+        style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header Section -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p
+                style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                문제 정의 <span style="color: #64748B; font-weight: 300;">(Problem)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p
+                style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                AI 시대의 MVP는 흔해졌지만, <span style="color: #E2E8F0; font-weight: 700;">실제 운영 가능한 품질의 제품</span>은 매우 드뭅니다.</p>
+        </div>
+        <!-- Card 1: Architecture -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 90px; top: 190px; width: 340px; height: 320px; background-color: #0F172A; border-radius: 12px; border: 1px solid #1E293B; border-top: 4px solid #EF4444; z-index: 1;">
+        </div>
+        <div data-object="true" data-object-type="icon"
+            style="position: absolute; left: 120px; top: 220px; width: 48px; height: 48px; z-index: 10;">
+            <div
+                style="width: 100%; height: 100%; background-color: rgba(239, 68, 68, 0.1); border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-shield-halved" style="color: #EF4444; font-size: 22px;"></i>
+            </div>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 120px; top: 285px; width: 280px; height: 60px; z-index: 10;">
+            <p
+                style="margin: 0; color: #F8FAFC; font-size: 22px; font-weight: 700; line-height: 1.3; font-family: 'Gothic A1', sans-serif; word-break: keep-all;">
+                빠른 코드, 약한 아키텍처</p>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 120px; top: 355px; width: 280px; height: 124px; z-index: 10;">
+            <div style="padding-top: 15px; border-top: 1px solid #1E293B;">
+                <p style="margin: 0 0 20px 0; color: #CBD5E1; font-size: 15px; line-height: 1.5; word-break: keep-all;">
+                    취약한 데이터 모델, 권한 부여, 비밀키 관리 부재</p>
+                <div
+                    style="background-color: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 6px; padding: 10px; text-align: center;">
+                    <p style="margin: 0; color: #EF4444; font-size: 15px; font-weight: 700;">보안 리스크 상시 노출</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2: Scaling -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 470px; top: 190px; width: 340px; height: 320px; background-color: #0F172A; border-radius: 12px; border: 1px solid #1E293B; border-top: 4px solid #F59E0B; z-index: 1;">
+        </div>
+        <div data-object="true" data-object-type="icon"
+            style="position: absolute; left: 500px; top: 220px; width: 48px; height: 48px; z-index: 10;">
+            <div
+                style="width: 100%; height: 100%; background-color: rgba(245, 158, 11, 0.1); border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-server" style="color: #F59E0B; font-size: 22px;"></i>
+            </div>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 500px; top: 285px; width: 280px; height: 60px; z-index: 10;">
+            <p
+                style="margin: 0; color: #F8FAFC; font-size: 22px; font-weight: 700; line-height: 1.3; font-family: 'Gothic A1', sans-serif; word-break: keep-all;">
+                스케일 구간에서의 붕괴</p>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 500px; top: 355px; width: 280px; height: 124px; z-index: 10;">
+            <div style="padding-top: 15px; border-top: 1px solid #1E293B;">
+                <p style="margin: 0 0 20px 0; color: #CBD5E1; font-size: 15px; line-height: 1.5; word-break: keep-all;">
+                    예외처리, 데이터 파이프라인, 관측성(Observability) 부재</p>
+                <div
+                    style="background-color: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 6px; padding: 10px; text-align: center;">
+                    <p style="margin: 0; color: #F59E0B; font-size: 15px; font-weight: 700;">성능 저하와 장애 반복</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3: Trust & Compliance -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 850px; top: 190px; width: 340px; height: 320px; background-color: #0F172A; border-radius: 12px; border: 1px solid #1E293B; border-top: 4px solid #60A5FA; z-index: 1;">
+        </div>
+        <div data-object="true" data-object-type="icon"
+            style="position: absolute; left: 880px; top: 220px; width: 48px; height: 48px; z-index: 10;">
+            <div
+                style="width: 100%; height: 100%; background-color: rgba(96, 165, 250, 0.1); border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-link-slash" style="color: #60A5FA; font-size: 22px;"></i>
+            </div>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 880px; top: 285px; width: 280px; height: 60px; z-index: 10;">
+            <p
+                style="margin: 0; color: #F8FAFC; font-size: 22px; font-weight: 700; line-height: 1.3; font-family: 'Gothic A1', sans-serif; word-break: keep-all;">
+                고신뢰 도메인의 신뢰 부족</p>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 880px; top: 355px; width: 280px; height: 124px; z-index: 10;">
+            <div style="padding-top: 15px; border-top: 1px solid #1E293B;">
+                <p style="margin: 0 0 20px 0; color: #CBD5E1; font-size: 15px; line-height: 1.5; word-break: keep-all;">
+                    컴플라이언스, 셀프 커스토디, 감사 가능성 구조 부족</p>
+                <div
+                    style="background-color: rgba(96, 165, 250, 0.08); border: 1px solid rgba(96, 165, 250, 0.2); border-radius: 6px; padding: 10px; text-align: center;">
+                    <p style="margin: 0; color: #60A5FA; font-size: 15px; font-weight: 700;">파트너 및 유저 확장 실패</p>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Implication Section -->
+        <div data-object="true" data-object-type="shape"
+            style="position: absolute; left: 90px; top: 540px; width: 1100px; height: 80px; background-color: #0B132B; border-radius: 12px; border: 1px solid #1E3A8A; z-index: 1;">
+        </div>
+        <div data-object="true" data-object-type="icon"
+            style="position: absolute; left: 125px; top: 564px; width: 32px; height: 32px; z-index: 10;">
+            <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-lightbulb" style="color: #60A5FA; font-size: 24px;"></i>
+            </div>
+        </div>
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 175px; top: 560px; width: 900px; height: 40px; z-index: 10;">
+            <p
+                style="margin: 0; font-size: 20px; color: #E2E8F0; line-height: 40px; font-weight: 400; font-family: 'Gothic A1', sans-serif;">
+                시장은 단순한 '작동'이 아니라 <span style="color: #60A5FA; font-weight: 700;">'운영·보안·설명 가능'</span>한 제품을 요구합니다.</p>
+        </div>
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox"
+            style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p
+                style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                Security Gap   |   Scaling Risk   |   Data Complexity   |   Trust Deficit</p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-4"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header Section -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                해결책 <span style="color: #64748B; font-weight: 300;">(Solution)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                우리는 AI로 <span style="color: #3B82F6; font-weight: 700;">빠르게</span> 만들고, 시니어 엔지니어링으로 <span style="color: #60A5FA; font-weight: 700;">안전하게</span> 완성합니다.
+            </p>
+        </div>
+
+        <!-- Flow Diagram Background -->
+        <div style="position: absolute; left: 90px; top: 200px; width: 1100px; height: 400px; z-index: 1;">
+            <!-- Connector Line -->
+            <div style="position: absolute; left: 50px; top: 150px; width: 1000px; height: 2px; background: linear-gradient(90deg, #1E293B 0%, #3B82F6 50%, #1E293B 100%);"></div>
+        </div>
+
+        <!-- Box 1: AI-assisted Build -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 220px; width: 330px; height: 260px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B; z-index: 5;">
+            <div style="padding: 30px;">
+                <div style="width: 56px; height: 56px; background-color: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                    <i class="fas fa-robot" style="color: #3B82F6; font-size: 28px;"></i>
+                </div>
+                <p style="margin: 0 0 10px 0; color: #F8FAFC; font-size: 22px; font-weight: 700;">AI-assisted Build</p>
+                <p style="margin: 0; color: #94A3B8; font-size: 16px; line-height: 1.6;">생성형 AI를 활용한 기초 코드 생성 및 반복 작업 파이프라인 자동화</p>
+                <div style="margin-top: 20px; color: #38BDF8; font-size: 14px; font-weight: 700; letter-spacing: 1px;">SPEED FOCUS</div>
+            </div>
+        </div>
+
+        <!-- Box 2: Senior Architecture Review -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 475px; top: 220px; width: 330px; height: 260px; background-color: #1E293B; border-radius: 16px; border: 1px solid #3B82F6; z-index: 10; box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);">
+            <div style="padding: 30px;">
+                <div style="width: 56px; height: 56px; background-color: rgba(59, 130, 246, 0.2); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                    <i class="fas fa-user-check" style="color: #FFFFFF; font-size: 28px;"></i>
+                </div>
+                <p style="margin: 0 0 10px 0; color: #FFFFFF; font-size: 22px; font-weight: 700;">Senior Review</p>
+                <p style="margin: 0; color: #CBD5E1; font-size: 16px; line-height: 1.6;">시니어 엔지니어의 로직 검증, 보안 설계, 아키텍처 최적화 및 정밀 검수</p>
+                <div style="margin-top: 20px; color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: 1px;">QUALITY EMPOWERED</div>
+            </div>
+        </div>
+
+        <!-- Box 3: Production-grade Scale -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 860px; top: 220px; width: 330px; height: 260px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B; z-index: 5;">
+            <div style="padding: 30px;">
+                <div style="width: 56px; height: 56px; background-color: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                    <i class="fas fa-cube" style="color: #3B82F6; font-size: 28px;"></i>
+                </div>
+                <p style="margin: 0 0 10px 0; color: #F8FAFC; font-size: 22px; font-weight: 700;">Production Quality</p>
+                <p style="margin: 0; color: #94A3B8; font-size: 16px; line-height: 1.6;">기관급 보안과 확장성을 갖춘, 실제 상업화 및 운영 가능한 최종 고품질 제품</p>
+                <div style="margin-top: 20px; color: #38BDF8; font-size: 14px; font-weight: 700; letter-spacing: 1px;">SCALABILITY READY</div>
+            </div>
+        </div>
+
+        <!-- Summary Sentence -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 540px; width: 1100px; height: 80px; background-color: #0B132B; border-radius: 12px; border: 1px solid #1E3A8A; z-index: 1; display: flex; align-items: center; justify-content: center;">
+             <p style="margin: 0; font-size: 20px; color: #E2E8F0; font-weight: 400; font-family: 'Gothic A1', sans-serif;">
+                We don’t just build fast. We build <span style="color: #60A5FA; font-weight: 700;">fast enough to win</span>, and <span style="color: #60A5FA; font-weight: 700;">safely enough to scale</span>.
+             </p>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                AI-assisted Build   |   Senior Review   |   Secure Pipeline   |   Production-grade
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-5"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                사업 확장 전략 <span style="color: #64748B; font-weight: 300;">(Wedge Strategy)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                하나의 <span style="color: #E2E8F0; font-weight: 700;">핵심 기술 스택</span>을 소비자 서비스에서 검증하고, 기업 시장과 인프라로 확장합니다.
+            </p>
+        </div>
+
+        <!-- Strategy Funnel / Layer -->
+        <!-- Step 1 -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 200px; width: 340px; height: 400px; background-color: rgba(15, 23, 42, 0.5); border-radius: 16px; border: 1px solid #1E293B; z-index: 1;">
+            <div style="padding: 40px 30px;">
+                <div style="color: #3B82F6; font-size: 14px; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;">PHASE 01. ENTRY</div>
+                <p style="margin: 0 0 15px 0; color: #F8FAFC; font-size: 28px; font-weight: 800; line-height: 1.2;">Consumer AI First</p>
+                <div style="width: 40px; height: 2px; background-color: #3B82F6; margin-bottom: 30px;"></div>
+                <p style="margin: 0 0 10px 0; color: #E2E8F0; font-size: 18px; font-weight: 700;">CheckLab.ai</p>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #94A3B8; font-size: 16px; line-height: 1.8;">
+                    <li>생활 밀착형 데이터 확보</li>
+                    <li>유저 행동 기반 개인화</li>
+                    <li>반복 결제 구독 모델 검증</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div style="position: absolute; left: 430px; top: 380px; width: 40px; height: 40px; z-index: 10; display: flex; justify-content: center; align-items: center;">
+            <i class="fas fa-chevron-right" style="color: #1E293B; font-size: 20px;"></i>
+        </div>
+
+        <!-- Step 2 -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 470px; top: 200px; width: 340px; height: 400px; background-color: rgba(30, 41, 59, 0.4); border-radius: 16px; border: 1px solid #334155; z-index: 1;">
+            <div style="padding: 40px 30px;">
+                <div style="color: #60A5FA; font-size: 14px; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;">PHASE 02. GROWTH</div>
+                <p style="margin: 0 0 15px 0; color: #F8FAFC; font-size: 28px; font-weight: 800; line-height: 1.2;">B2B Data Engine</p>
+                <div style="width: 40px; height: 2px; background-color: #60A5FA; margin-bottom: 30px;"></div>
+                <p style="margin: 0 0 10px 0; color: #E2E8F0; font-size: 18px; font-weight: 700;">Reusable API</p>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #94A3B8; font-size: 16px; line-height: 1.8;">
+                    <li>검증된 데이터 파이프라인</li>
+                    <li>기업용 맞춤형 AI 모듈</li>
+                    <li>화이트라벨 솔루션 공급</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div style="position: absolute; left: 810px; top: 380px; width: 40px; height: 40px; z-index: 10; display: flex; justify-content: center; align-items: center;">
+            <i class="fas fa-chevron-right" style="color: #1E293B; font-size: 20px;"></i>
+        </div>
+
+        <!-- Step 3 -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 850px; top: 200px; width: 340px; height: 400px; background-color: rgba(30, 58, 138, 0.2); border-radius: 16px; border: 1px solid #3B82F6; z-index: 1;">
+            <div style="padding: 40px 30px;">
+                <div style="color: #93C5FD; font-size: 14px; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;">PHASE 03. TRUST</div>
+                <p style="margin: 0 0 15px 0; color: #F8FAFC; font-size: 28px; font-weight: 800; line-height: 1.2;">Web3 Infrastructure</p>
+                <div style="width: 40px; height: 2px; background-color: #93C5FD; margin-bottom: 30px;"></div>
+                <p style="margin: 0 0 10px 0; color: #E2E8F0; font-size: 18px; font-weight: 700;">GFEX & Beyond</p>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #94A3B8; font-size: 16px; line-height: 1.8;">
+                    <li>고보안 온체인 설계 역량</li>
+                    <li>신뢰 기반 인프라 구축</li>
+                    <li>글로벌 컴플라이언스 대응</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                Consumer AI First   |   Reusable Data Engine   |   B2B API Expansion   |   Web3 Capability
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-6"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                제품 실체 <span style="color: #64748B; font-weight: 300;">(Product Proof)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                우리는 이미 서로 다른 도메인에서 <span style="color: #E2E8F0; font-weight: 700;">실제 작동하는 제품</span>을 기획하고 구축했습니다.
+            </p>
+        </div>
+
+        <!-- Left: CheckLab.ai -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 190px; width: 535px; height: 430px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B; overflow: hidden;">
+            <div style="padding: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                    <div style="width: 48px; height: 48px; background-color: rgba(59, 130, 246, 0.1); border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                        <i class="fas fa-magnifying-glass-chart" style="color: #3B82F6; font-size: 24px;"></i>
+                    </div>
+                    <div>
+                        <p style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 700;">CheckLab.ai</p>
+                        <p style="margin: 0; color: #64748B; font-size: 14px;">AI DATA INTELLIGENCE PLATFORM</p>
+                    </div>
+                </div>
+                <!-- Mockup Area -->
+                <div style="width: 100%; height: 180px; background-color: #050810; border-radius: 8px; border: 1px solid #1E293B; margin-bottom: 25px; display: flex; flex-direction: column; padding: 15px; gap: 10px;">
+                    <div style="height: 12px; width: 60%; background-color: #1E293B; border-radius: 6px;"></div>
+                    <div style="height: 12px; width: 85%; background-color: #1E293B; border-radius: 6px;"></div>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                         <div style="height: 60px; flex: 1; background-color: rgba(59, 130, 246, 0.05); border: 1px dashed #1E3A8A; border-radius: 6px;"></div>
+                         <div style="height: 60px; flex: 1; background-color: rgba(59, 130, 246, 0.05); border: 1px dashed #1E3A8A; border-radius: 6px;"></div>
+                    </div>
+                    <div style="margin-top: auto; height: 30px; width: 100%; background-color: #3B82F6; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #FFF; font-weight: 700;">AI INSIGHT GENERATING...</div>
+                </div>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #CBD5E1; font-size: 16px; line-height: 1.8;">
+                    <li>식품, 운세, 피부 등 개인화 데이터 구조화</li>
+                    <li>LLM 기반 자동 분석 및 추천 엔진 탑재</li>
+                    <li>반복 사용이 가능한 일상 밀착형 UX</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right: GFEX -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 655px; top: 190px; width: 535px; height: 430px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B; overflow: hidden;">
+            <div style="padding: 30px;">
+                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                    <div style="width: 48px; height: 48px; background-color: rgba(139, 92, 246, 0.1); border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                        <i class="fas fa-vault" style="color: #8B5CF6; font-size: 24px;"></i>
+                    </div>
+                    <div>
+                        <p style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 700;">GFEX</p>
+                        <p style="margin: 0; color: #64748B; font-size: 14px;">Web3 SECURE PREDICTION PLATFORM</p>
+                    </div>
+                </div>
+                <!-- Mockup Area -->
+                <div style="width: 100%; height: 180px; background-color: #050810; border-radius: 8px; border: 1px solid #1E293B; margin-bottom: 25px; display: flex; flex-direction: column; padding: 15px; gap: 10px;">
+                    <div style="padding: 10px; background-color: #1E293B; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                         <div style="height: 10px; width: 100px; background-color: #334155; border-radius: 5px;"></div>
+                         <div style="height: 14px; width: 60px; background-color: #8B5CF6; border-radius: 7px;"></div>
+                    </div>
+                    <div style="margin-top: 10px; flex: 1; border: 1px solid #1E293B; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+                         <div style="height: 8px; width: 40%; background-color: #334155; border-radius: 4px;"></div>
+                         <div style="height: 8px; width: 70%; background-color: #334155; border-radius: 4px;"></div>
+                         <div style="margin-top: auto; display: flex; gap: 5px;">
+                             <div style="height: 20px; width: 40px; background-color: #10B981; border-radius: 2px;"></div>
+                             <div style="height: 20px; width: 40px; background-color: #F43F5E; border-radius: 2px;"></div>
+                         </div>
+                    </div>
+                </div>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #CBD5E1; font-size: 16px; line-height: 1.8;">
+                    <li>Self-Custody 기반의 고보안 온체인 설계</li>
+                    <li>투명한 데이터 기록 및 조작 불가능한 시스템</li>
+                    <li>Web3 인프라 운영 및 정산 자동화</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                CheckLab.ai   |   GFEX   |   Consumer AI   |   Secure Web3
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-7"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                트랙션 및 로드맵 <span style="color: #64748B; font-weight: 300;">(Traction & Roadmap)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                우리는 설립 후 <span style="color: #E2E8F0; font-weight: 700;">빠르게 제품 기반을 확보</span>했으며, 이제 실제 지표로 성장을 증명할 단계입니다.
+            </p>
+        </div>
+
+        <!-- Timeline Section -->
+        <div style="position: absolute; left: 90px; top: 220px; width: 1100px; height: 2px; background-color: #1E293B; z-index: 1;">
+             <!-- Timeline Points -->
+             <div style="position: absolute; left: 0; top: -5px; width: 12px; height: 12px; background-color: #3B82F6; border-radius: 50%;"></div>
+             <div style="position: absolute; left: 33%; top: -5px; width: 12px; height: 12px; background-color: #3B82F6; border-radius: 50%;"></div>
+             <div style="position: absolute; left: 66%; top: -5px; width: 12px; height: 12px; background-color: #64748B; border-radius: 50%;"></div>
+             <div style="position: absolute; left: 100%; top: -5px; width: 12px; height: 12px; background-color: #64748B; border-radius: 50%;"></div>
+        </div>
+
+        <div style="position: absolute; left: 90px; top: 250px; width: 1100px; display: flex; gap: 40px;">
+            <!-- Step 1 -->
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #3B82F6; font-size: 14px; font-weight: 700;">2024 Q1</p>
+                <p style="margin: 10px 0 0 0; color: #F8FAFC; font-size: 18px; font-weight: 700;">Trinity Labs 설립</p>
+                <p style="margin: 5px 0 0 0; color: #94A3B8; font-size: 14px; line-height: 1.5;">3인 핵심 팀 구성 완료<br/>주력 제품 기획 및 설계 착수</p>
+            </div>
+            <!-- Step 2 -->
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #3B82F6; font-size: 14px; font-weight: 700;">2024 Q2</p>
+                <p style="margin: 10px 0 0 0; color: #F8FAFC; font-size: 18px; font-weight: 700;">MVP 구축 및 테스트</p>
+                <p style="margin: 5px 0 0 0; color: #94A3B8; font-size: 14px; line-height: 1.5;">CheckLab Beta 런칭<br/>GFEX 프로토타입 완료</p>
+            </div>
+            <!-- Step 3 -->
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #64748B; font-size: 14px; font-weight: 700;">2024 Q3 (Current)</p>
+                <p style="margin: 10px 0 0 0; color: #F8FAFC; font-size: 18px; font-weight: 700;">Seed Raise & Growth</p>
+                <p style="margin: 5px 0 0 0; color: #94A3B8; font-size: 14px; line-height: 1.5;">유저 확보 가속화<br/>B2B 파일럿 PoC 협의</p>
+            </div>
+            <!-- Step 4 -->
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #64748B; font-size: 14px; font-weight: 700;">2024 Q4</p>
+                <p style="margin: 10px 0 0 0; color: #F8FAFC; font-size: 18px; font-weight: 700;">Scalability 증명</p>
+                <p style="margin: 5px 0 0 0; color: #94A3B8; font-size: 14px; line-height: 1.5;">반복 매출 구조 확립<br/>Series A 준비</p>
+            </div>
+        </div>
+
+        <!-- KPI Goals for next 12 months -->
+        <div style="position: absolute; left: 90px; top: 440px; width: 1100px; height: 180px; display: flex; gap: 20px;">
+             <!-- Goal 1 -->
+             <div style="flex: 1; background-color: rgba(15, 23, 42, 0.5); border: 1px solid #1E293B; border-radius: 12px; padding: 25px;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px; font-weight: 700; letter-spacing: 1px;">CHECKLAB GOAL</p>
+                 <p style="margin: 15px 0 5px 0; color: #F8FAFC; font-size: 32px; font-weight: 800;">[입력] <span style="font-size: 16px; font-weight: 400; color: #64748B;">MAU</span></p>
+                 <p style="margin: 0; color: #3B82F6; font-size: 14px;">유료 전환율 [입력]% 달성</p>
+             </div>
+             <!-- Goal 2 -->
+             <div style="flex: 1; background-color: rgba(15, 23, 42, 0.5); border: 1px solid #1E293B; border-radius: 12px; padding: 25px;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px; font-weight: 700; letter-spacing: 1px;">B2B PIPELINE</p>
+                 <p style="margin: 15px 0 5px 0; color: #F8FAFC; font-size: 32px; font-weight: 800;">[입력] <span style="font-size: 16px; font-weight: 400; color: #64748B;">Companies</span></p>
+                 <p style="margin: 0; color: #3B82F6; font-size: 14px;">파일럿PoC [입력]건 확보</p>
+             </div>
+             <!-- Goal 3 -->
+             <div style="flex: 1; background-color: rgba(15, 23, 42, 0.5); border: 1px solid #1E293B; border-radius: 12px; padding: 25px;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px; font-weight: 700; letter-spacing: 1px;">WEB3 TRUST</p>
+                 <p style="margin: 15px 0 5px 0; color: #F8FAFC; font-size: 32px; font-weight: 800;">[입력] <span style="font-size: 16px; font-weight: 400; color: #64748B;">Volume</span></p>
+                 <p style="margin: 0; color: #3B82F6; font-size: 14px;">보안 사고 Zero 운영</p>
+             </div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                CheckLab Users [입력]   |   MAU [입력]   |   Paid Conv. [입력]%   |   B2B Pipeline [입력]건
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-8"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                시장 기회 <span style="color: #64748B; font-weight: 300;">(Market Opportunity)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                우리는 반복 결제가 가능한 <span style="color: #E2E8F0; font-weight: 700;">소비자 AI</span> 시장에서 시작해, <span style="color: #60A5FA; font-weight: 700;">기업 시장</span>으로 확장합니다.
+            </p>
+        </div>
+
+        <!-- Left Segment: Consumer AI -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 190px; width: 535px; height: 320px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B;">
+            <div style="padding: 30px;">
+                <p style="margin: 0; color: #3B82F6; font-size: 14px; font-weight: 700; letter-spacing: 2px;">CONSUMER AI WEDGE</p>
+                <p style="margin: 15px 0 20px 0; color: #F8FAFC; font-size: 24px; font-weight: 700; line-height: 1.3;">생활 밀착형 데이터 <br/>개인화 인사이트 시장</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #3B82F6;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">식품 성분, 피부, 운세 등 고빈도 관심사</span>
+                     </div>
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #3B82F6;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">구독 기반의 반복 결제 유도 가능</span>
+                     </div>
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #3B82F6;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">초개인화된 AI 가치 체제 구축</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Segment: Enterprise AI -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 655px; top: 190px; width: 535px; height: 320px; background-color: #0F172A; border-radius: 16px; border: 1px solid #1E293B;">
+            <div style="padding: 30px;">
+                <p style="margin: 0; color: #60A5FA; font-size: 14px; font-weight: 700; letter-spacing: 2px;">ENTERPRISE AI DEMAND</p>
+                <p style="margin: 15px 0 20px 0; color: #F8FAFC; font-size: 24px; font-weight: 700; line-height: 1.3;">검증된 AI 인프라의 <br/>B2B 라이선스 시장</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #60A5FA;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">기업 내 AI 기능 도입 가속화 수요</span>
+                     </div>
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #60A5FA;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">내부 리소스 부족 팀을 위한 API 공급</span>
+                     </div>
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                         <i class="fas fa-check-circle" style="color: #60A5FA;"></i>
+                         <span style="color: #CBD5E1; font-size: 16px;">데이터 파이프라인 화이트라벨링</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom: Bottom-up Revenue Logic -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 530px; width: 1100px; height: 100px; background-color: #0B132B; border: 1px solid #1E3A8A; border-radius: 12px; display: flex; align-items: center; padding: 0 40px;">
+             <div style="flex: 1; text-align: center; border-right: 1px solid #1E293B;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px;">Target Segments</p>
+                 <p style="margin: 5px 0 0 0; color: #FFFFFF; font-size: 22px; font-weight: 700;">[입력] <span style="font-size: 14px; font-weight: 400;">M Users</span></p>
+             </div>
+             <div style="flex: 1; text-align: center; border-right: 1px solid #1E293B;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px;">Conversion Logic</p>
+                 <p style="margin: 5px 0 0 0; color: #FFFFFF; font-size: 22px; font-weight: 700;">[입력] <span style="font-size: 14px; font-weight: 400;">% Conversion</span></p>
+             </div>
+             <div style="flex: 1; text-align: center; border-right: 1px solid #1E293B;">
+                 <p style="margin: 0; color: #94A3B8; font-size: 13px;">Target ARPU</p>
+                 <p style="margin: 5px 0 0 0; color: #FFFFFF; font-size: 22px; font-weight: 700;">[입력] <span style="font-size: 14px; font-weight: 400;">KRW / Mo</span></p>
+             </div>
+             <div style="flex: 1.5; text-align: center;">
+                 <p style="margin: 0; color: #60A5FA; font-size: 13px; font-weight: 700;">ESTIMATED REVENUE (12M)</p>
+                 <p style="margin: 5px 0 0 0; color: #FFFFFF; font-size: 26px; font-weight: 800;">연 매출 [입력] 억 원</p>
+             </div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                Consumer AI Wedge   |   Enterprise AI Demand   |   Bottom-up Expansion   |   Multi-market Engine
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-9"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                팀 구성 <span style="color: #64748B; font-weight: 300;">(The Team)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                기술, 사업개발, 규제 대응의 세 축을 동시에 갖춘 <span style="color: #E2E8F0; font-weight: 700;">소수 정예 실행 조직</span>입니다.
+            </p>
+        </div>
+
+        <!-- Team Members Area -->
+        <div style="position: absolute; left: 90px; top: 200px; width: 1100px; display: flex; gap: 30px;">
+            <!-- CEO -->
+            <div data-object="true" data-object-type="shape" style="flex: 1; height: 430px; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;">
+                 <div style="height: 180px; width: 100%; background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%); display: flex; justify-content: center; align-items: center;">
+                      <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #1E293B; border: 2px solid #3B82F6; display: flex; justify-content: center; align-items: center;">
+                           <i class="fas fa-user-tie" style="color: #3B82F6; font-size: 40px;"></i>
+                      </div>
+                 </div>
+                 <div style="padding: 25px; flex: 1; display: flex; flex-direction: column;">
+                      <p style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 700; text-align: center;">이남수</p>
+                      <p style="margin: 5px 0 20px 0; color: #3B82F6; font-size: 14px; font-weight: 700; text-align: center; letter-spacing: 1px;">CEO | STRATEGY & BD</p>
+                      <ul style="margin: 0; padding: 0 0 0 15px; color: #94A3B8; font-size: 14px; line-height: 1.6; list-style-type: none;">
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>가상자산 비즈니스 개발 및 투자 전략</li>
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>글로벌 네트워크 확장 및 파트너십 협상</li>
+                           <li><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>상업화 추진력 및 토큰 이코노미 설계</li>
+                      </ul>
+                 </div>
+            </div>
+
+            <!-- CTO -->
+            <div data-object="true" data-object-type="shape" style="flex: 1; height: 430px; background-color: #1E293B; border: 1px solid #3B82F6; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);">
+                 <div style="height: 180px; width: 100%; background: linear-gradient(180deg, #1E3A8A 0%, #1E293B 100%); display: flex; justify-content: center; align-items: center;">
+                      <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #0F172A; border: 2px solid #FFFFFF; display: flex; justify-content: center; align-items: center;">
+                           <i class="fas fa-microchip" style="color: #FFFFFF; font-size: 40px;"></i>
+                      </div>
+                 </div>
+                 <div style="padding: 25px; flex: 1; display: flex; flex-direction: column;">
+                      <p style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 700; text-align: center;">최종찬</p>
+                      <p style="margin: 5px 0 20px 0; color: #FFFFFF; font-size: 14px; font-weight: 700; text-align: center; letter-spacing: 1px;">CTO | 20+ YRS ENGINEERING</p>
+                      <ul style="margin: 0; padding: 0 0 0 15px; color: #CBD5E1; font-size: 14px; line-height: 1.6; list-style-type: none;">
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>풀스택 AI 시스템 및 보안 아키텍처 설계</li>
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>20년 이상의 고성능 분산 시스템 구축</li>
+                           <li><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>AI 생산성을 운영 품질로 전환하는 기술 리더</li>
+                      </ul>
+                 </div>
+            </div>
+
+            <!-- CLO -->
+            <div data-object="true" data-object-type="shape" style="flex: 1; height: 430px; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;">
+                 <div style="height: 180px; width: 100%; background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%); display: flex; justify-content: center; align-items: center;">
+                      <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #1E293B; border: 2px solid #3B82F6; display: flex; justify-content: center; align-items: center;">
+                           <i class="fas fa-scale-balanced" style="color: #3B82F6; font-size: 40px;"></i>
+                      </div>
+                 </div>
+                 <div style="padding: 25px; flex: 1; display: flex; flex-direction: column;">
+                      <p style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 700; text-align: center;">허재영</p>
+                      <p style="margin: 5px 0 20px 0; color: #3B82F6; font-size: 14px; font-weight: 700; text-align: center; letter-spacing: 1px;">CLO | NY BAR LAWYER</p>
+                      <ul style="margin: 0; padding: 0 0 0 15px; color: #94A3B8; font-size: 14px; line-height: 1.6; list-style-type: none;">
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>미국 뉴욕주 변호사 (글로벌 규제 대응)</li>
+                           <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>M&A 및 복합 법률 리스크 선제적 관리</li>
+                           <li><i class="fas fa-circle" style="font-size: 4px; vertical-align: middle; margin-right: 8px;"></i>글로벌 컴플라이언스 체계 설계 주도</li>
+                      </ul>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 660px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                CEO: Strategy & BD   |   CTO: 20+ yrs Engineering   |   CLO: NY Bar   |   3-person Master Team
+            </p>
+        </div>
+    </div</section>\n<section class="slide-section" id="section-10"><div class="slide-container" style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+        <!-- Header -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #FFFFFF; font-size: 42px; font-weight: 700; letter-spacing: -1px; font-family: 'Gothic A1', sans-serif;">
+                투자 제안 <span style="color: #64748B; font-weight: 300;">(Investment & Milestones)</span></p>
+        </div>
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
+            <p style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;">
+                Trinity Labs는 시드 5억 원을 조달하여 <span style="color: #E2E8F0; font-weight: 700;">12개월 내 핵심 매출 지표</span>를 확보하고자 합니다.
+            </p>
+        </div>
+
+        <!-- Left: Raise Amount -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 190px; width: 1100px; height: 160px; background-color: #172554; border: 1px solid #3B82F6; border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(59, 130, 246, 0.1);">
+             <div style="text-align: center;">
+                 <p style="margin: 0; color: #93C5FD; font-size: 16px; font-weight: 700; letter-spacing: 2px;">SEED ROUND FUNDING ASK</p>
+                 <p style="margin: 10px 0 0 0; color: #FFFFFF; font-size: 56px; font-weight: 800;">500,000,000 <span style="font-size: 24px;">KRW</span></p>
+             </div>
+        </div>
+
+        <!-- Middle Left: Use of Funds -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 90px; top: 380px; width: 535px; height: 240px; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 16px; padding: 30px;">
+             <p style="margin: 0 0 25px 0; color: #F8FAFC; font-size: 20px; font-weight: 700;">자금 사용 계획 (Use of Funds)</p>
+             <div style="display: flex; flex-direction: column; gap: 20px;">
+                  <!-- Item 1 -->
+                  <div>
+                       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #CBD5E1; font-size: 14px;">Product Hacking & Infra</span>
+                            <span style="color: #FFFFFF; font-size: 14px; font-weight: 700;">40%</span>
+                       </div>
+                       <div style="height: 6px; width: 100%; background-color: #1E293B; border-radius: 3px; overflow: hidden;">
+                            <div style="height: 100%; width: 40%; background-color: #3B82F6;"></div>
+                       </div>
+                  </div>
+                  <!-- Item 2 -->
+                  <div>
+                       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #CBD5E1; font-size: 14px;">Growth & Marketing</span>
+                            <span style="color: #FFFFFF; font-size: 14px; font-weight: 700;">30%</span>
+                       </div>
+                       <div style="height: 6px; width: 100%; background-color: #1E293B; border-radius: 3px; overflow: hidden;">
+                            <div style="height: 100%; width: 30%; background-color: #60A5FA;"></div>
+                       </div>
+                  </div>
+                  <!-- Item 3 -->
+                  <div>
+                       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #CBD5E1; font-size: 14px;">Ops / Compliance / Legal</span>
+                            <span style="color: #FFFFFF; font-size: 14px; font-weight: 700;">30%</span>
+                       </div>
+                       <div style="height: 6px; width: 100%; background-color: #1E293B; border-radius: 3px; overflow: hidden;">
+                            <div style="height: 100%; width: 30%; background-color: #94A3B8;"></div>
+                       </div>
+                  </div>
+             </div>
+        </div>
+
+        <!-- Middle Right: 12M Milestones -->
+        <div data-object="true" data-object-type="shape" style="position: absolute; left: 655px; top: 380px; width: 535px; height: 240px; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 16px; padding: 30px;">
+             <p style="margin: 0 0 25px 0; color: #F8FAFC; font-size: 20px; font-weight: 700;">12개월 목표 (Milestones)</p>
+             <div style="display: flex; flex-direction: column; gap: 15px;">
+                  <div style="display: flex; align-items: flex-start; gap: 12px;">
+                       <span style="width: 20px; height: 20px; background-color: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; border-radius: 4px; display: flex; justify-content: center; align-items: center; margin-top: 2px;"><i class="fas fa-check" style="color: #3B82F6; font-size: 10px;"></i></span>
+                       <p style="margin: 0; color: #CBD5E1; font-size: 15px;">CheckLab 유료 구독 모델 정식 출시 및 [입력]명 확보</p>
+                  </div>
+                  <div style="display: flex; align-items: flex-start; gap: 12px;">
+                       <span style="width: 20px; height: 20px; background-color: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; border-radius: 4px; display: flex; justify-content: center; align-items: center; margin-top: 2px;"><i class="fas fa-check" style="color: #3B82F6; font-size: 10px;"></i></span>
+                       <p style="margin: 0; color: #CBD5E1; font-size: 15px;">B2B 파일럿 고객 [입력]개사 유료 전환 및 PoC 완료</p>
+                  </div>
+                  <div style="display: flex; align-items: flex-start; gap: 12px;">
+                       <span style="width: 20px; height: 20px; background-color: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; border-radius: 4px; display: flex; justify-content: center; align-items: center; margin-top: 2px;"><i class="fas fa-check" style="color: #3B82F6; font-size: 10px;"></i></span>
+                       <p style="margin: 0; color: #CBD5E1; font-size: 15px;">월 매출 [입력]억 원 이상의 지속 가능한 현금 흐름 확보</p>
+                  </div>
+                  <div style="display: flex; align-items: flex-start; gap: 12px;">
+                       <span style="width: 20px; height: 20px; background-color: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; border-radius: 4px; display: flex; justify-content: center; align-items: center; margin-top: 2px;"><i class="fas fa-check" style="color: #3B82F6; font-size: 10px;"></i></span>
+                       <p style="margin: 0; color: #CBD5E1; font-size: 15px;">Series A 투자를 위한 핵심 KPI (Retention, ARPU) 달성</p>
+                  </div>
+             </div>
+        </div>
+
+        <!-- Final One-liner -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 645px; width: 1100px; height: 40px; z-index: 10; text-align: center;">
+             <p style="margin: 0; color: #64748B; font-size: 18px; font-style: italic;">"We are raising to <span style="color: #FFFFFF; font-weight: 700;">accelerate</span> what we already know how to build."</p>
+        </div>
+
+        <!-- Footer Meta -->
+        <div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 685px; width: 1100px; height: 20px; z-index: 10;">
+            <p style="margin: 0; padding: 0; text-align: center; color: #475569; font-size: 14px; font-weight: 400; letter-spacing: 1px;">
+                Raise 5억 원   |   12-Month Runway [입력]   |   Paid Users [입력]   |   B2B Pilots [입력]개
+            </p>
+        </div>
+    </div</section>\n
     </div>
-    
-    
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #050810;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .slide-container {
-            flex-shrink: 0;
-            transform-origin: center;
-        }
-
-        .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            border: 2px solid #3B82F6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-size: 28px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 9999;
-            text-decoration: none;
-            opacity: 1;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-        }
-        .nav-btn:hover {
-            background: rgba(59, 130, 246, 0.3);
-            border-color: #60A5FA;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
-        }
-        .prev-btn { left: 40px; }
-        .next-btn { right: 40px; }
-        .nav-btn.disabled {
-            display: none !important;
-        }
-        @media (max-width: 768px) {
-            .nav-btn { width: 55px; height: 55px; font-size: 22px; }
-            .prev-btn { left: 15px; }
-            .next-btn { right: 15px; }
-        }
-    </style>
-
-    <div id="prev-btn" class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></div>
-    <div id="next-btn" class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></div>
 
     <script>
         (function() {
-            // Navigation Logic
-            function navigate(direction) {
-                const currentPath = window.location.pathname;
-                let fileName = currentPath.split('/').pop() || 'index.html';
-                let currentPage = 1;
-                if (fileName.includes('.html') && fileName !== 'index.html') {
-                    currentPage = parseInt(fileName.replace('.html', '')) || 1;
-                }
+            const viewport = document.getElementById('deck-viewport');
+            const sections = document.querySelectorAll('.slide-section');
+            const sideNav = document.getElementById('side-nav');
+            const upNav = document.getElementById('up-nav');
+            const downNav = document.getElementById('down-nav');
+            
+            let currentIdx = 0;
 
-                if (direction === 'next' && currentPage < 10) {
-                    window.location.href = (currentPage + 1) + '.html';
-                } else if (direction === 'prev' && currentPage > 1) {
-                    if (currentPage === 2) {
-                        window.location.href = 'index.html';
-                    } else {
-                        window.location.href = (currentPage - 1) + '.html';
+            // Generate dots
+            sections.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => {
+                    viewport.scrollTo({ top: sections[i].offsetTop, behavior: 'smooth' });
+                };
+                sideNav.appendChild(dot);
+            });
+
+            // Update UI on scroll
+            viewport.addEventListener('scroll', () => {
+                const scrollPos = viewport.scrollTop;
+                const winHeight = window.innerHeight;
+                currentIdx = Math.round(scrollPos / winHeight);
+                
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIdx);
+                });
+
+                upNav.classList.toggle('hidden', currentIdx === 0);
+                downNav.classList.toggle('hidden', currentIdx === sections.length - 1);
+            });
+
+            // Click handlers
+            upNav.onclick = () => {
+                if (currentIdx > 0) viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
+            };
+            downNav.onclick = () => {
+                if (currentIdx < sections.length - 1) viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
+            };
+
+            // Keyboard/Space
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+                    if (currentIdx < sections.length - 1) {
+                        e.preventDefault();
+                        viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
                     }
-                }
-            }
-
-            // Keyboard Support
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
-                    navigate('next');
-                } else if (e.key === 'ArrowLeft') {
-                    navigate('prev');
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    if (currentIdx > 0) {
+                        e.preventDefault();
+                        viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
+                    }
                 }
             });
 
-            // Button Support
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            const currentPath = window.location.pathname;
-            let fileName = currentPath.split('/').pop() || 'index.html';
-            let currentPage = 1;
-            if (fileName.includes('.html') && fileName !== 'index.html') {
-                currentPage = parseInt(fileName.replace('.html', '')) || 1;
-            }
-
-            if (currentPage === 1) prevBtn.classList.add('disabled');
-            if (currentPage === 10) nextBtn.classList.add('disabled');
-
-            prevBtn.addEventListener('click', () => navigate('prev'));
-            nextBtn.addEventListener('click', () => navigate('next'));
-
-            // AUTO-SCALING LOGIC
-            function scaleSlider() {
-                const container = document.querySelector('.slide-container');
-                if (!container) return;
+            // Responsive Scaling
+            function scaleDeck() {
+                const containers = document.querySelectorAll('.slide-container');
                 const winWidth = window.innerWidth;
                 const winHeight = window.innerHeight;
-                // Leave a small margin (0.95) for professional look
                 const scale = Math.min(winWidth / 1280, winHeight / 720) * 0.95;
-                container.style.transform = `scale(${scale})`;
+                containers.forEach(el => {
+                    el.style.transform = `scale(${scale})`;
+                });
             }
 
-            window.addEventListener('resize', scaleSlider);
-            scaleSlider();
+            window.addEventListener('resize', scaleDeck);
+            scaleDeck();
         })();
     </script>
 </body>
-
 </html>
