@@ -104,13 +104,33 @@ master_template = """<!DOCTYPE html>
         .down-arrow { bottom: 20px; }
         .page-arrow.hidden { opacity: 0; pointer-events: none; }
 
+        /* Page Counter */
+        #page-counter {
+            position: fixed;
+            right: 40px;
+            bottom: 30px;
+            z-index: 10000;
+            font-family: 'Gothic A1', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 6px 12px;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         @media (max-width: 768px) {
             #side-nav { right: 20px; }
+            #page-counter { right: 20px; bottom: 20px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
     <div id="side-nav"></div>
+    <div id="page-counter">01 / 10</div>
     <div id="up-nav" class="page-arrow up-arrow hidden"><i class="fas fa-chevron-up"></i></div>
     <div id="down-nav" class="page-arrow down-arrow"><i class="fas fa-chevron-down"></i></div>
 
@@ -123,12 +143,13 @@ master_template = """<!DOCTYPE html>
             const viewport = document.getElementById('deck-viewport');
             const sections = document.querySelectorAll('.slide-section');
             const sideNav = document.getElementById('side-nav');
+            const pageCounter = document.getElementById('page-counter');
             const upNav = document.getElementById('up-nav');
             const downNav = document.getElementById('down-nav');
             
             let currentIdx = 0;
 
-            // Generate Nav Dots
+            // Generate dots
             sections.forEach((_, i) => {
                 const dot = document.createElement('div');
                 dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
@@ -147,6 +168,9 @@ master_template = """<!DOCTYPE html>
                 document.querySelectorAll('.nav-dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIdx);
                 });
+
+                // Update Page Counter
+                pageCounter.innerText = `${(currentIdx + 1).toString().padStart(2, '0')} / ${sections.length.toString().padStart(2, '0')}`;
 
                 upNav.classList.toggle('hidden', currentIdx === 0);
                 downNav.classList.toggle('hidden', currentIdx === sections.length - 1);
