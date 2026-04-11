@@ -80,13 +80,20 @@
         }
 
         @media (max-width: 768px) {
-            #side-nav { right: 15px; gap: 20px; }
-            .nav-dot { width: 16px; height: 16px; }
-            .nav-dot.active { transform: scale(1.4); }
+            #side-nav { right: 15px; gap: 12px; } /* Gap reduced from 20px */
+            .nav-dot { width: 14px; height: 14px; } /* Size reduced from 16px */
+            .nav-dot.active { transform: scale(1.3); }
             #page-counter { right: 15px; bottom: 15px; font-size: 14px; padding: 8px 16px; }
             .page-arrow { font-size: 32px; padding: 15px; }
             .up-arrow { top: 10px; }
             .down-arrow { bottom: 10px; }
+        }
+
+        /* Extreme low height (iPhone Landscape) */
+        @media (max-height: 420px) {
+            #side-nav { gap: 8px; }
+            .nav-dot { width: 10px; height: 10px; }
+            .page-arrow { display: none; } /* Hide arrows if height is too small */
         }
 
         /* Landscape Orientation Hint */
@@ -1016,7 +1023,10 @@
             viewport.addEventListener('scroll', () => {
                 const scrollPos = viewport.scrollTop;
                 const winHeight = window.innerHeight;
-                currentIdx = Math.round(scrollPos / winHeight);
+                
+                // Clamping currentIdx to prevent out-of-bounds (e.g., 12 / 10)
+                let newIdx = Math.round(scrollPos / winHeight);
+                currentIdx = Math.max(0, Math.min(sections.length - 1, newIdx));
                 
                 document.querySelectorAll('.nav-dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIdx);
@@ -1087,6 +1097,7 @@
             // Touch (Swipe) Support
             let touchStartY = 0;
             let touchEndY = 0;
+            let isScrolling = false; // Lock to prevent multiple swipes
 
             viewport.addEventListener('touchstart', e => {
                 touchStartY = e.changedTouches[0].screenY;
@@ -1098,17 +1109,26 @@
             }, { passive: true });
 
             function handleSwipe() {
-                const swipeThreshold = 50;
-                if (touchStartY - touchEndY > swipeThreshold) {
-                    // Swipe Up -> Next
-                    if (currentIdx < sections.length - 1) {
-                        viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
+                if (isScrolling) return; // Ignore if already handling a swipe
+                
+                const swipeThreshold = 40; // Adjusted for better sensitivity
+                const diff = touchStartY - touchEndY;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    isScrolling = true;
+                    if (diff > 0) {
+                        // Swipe Up -> Next
+                        if (currentIdx < sections.length - 1) {
+                            viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
+                        }
+                    } else {
+                        // Swipe Down -> Prev
+                        if (currentIdx > 0) {
+                            viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
+                        }
                     }
-                } else if (touchEndY - touchStartY > swipeThreshold) {
-                    // Swipe Down -> Prev
-                    if (currentIdx > 0) {
-                        viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
-                    }
+                    // Release lock after animation
+                    setTimeout(() => { isScrolling = false; }, 600);
                 }
             }
 
