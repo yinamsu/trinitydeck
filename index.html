@@ -1024,9 +1024,17 @@
                 const scrollPos = viewport.scrollTop;
                 const winHeight = window.innerHeight;
                 
-                // Clamping currentIdx to prevent out-of-bounds (e.g., 12 / 10)
-                let newIdx = Math.round(scrollPos / winHeight);
-                currentIdx = Math.max(0, Math.min(sections.length - 1, newIdx));
+                // More robust way to find currentIdx: find the section closest to the top
+                let bestIdx = 0;
+                let minDiff = Infinity;
+                sections.forEach((sec, i) => {
+                    const diff = Math.abs(sec.offsetTop - scrollPos);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        bestIdx = i;
+                    }
+                });
+                currentIdx = bestIdx;
                 
                 document.querySelectorAll('.nav-dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIdx);
@@ -1097,10 +1105,12 @@
             // Touch (Swipe) Support
             let touchStartY = 0;
             let touchEndY = 0;
+            let startIdx = 0; // Captures currentIdx at the moment touch starts
             let isScrolling = false; // Lock to prevent multiple swipes
 
             viewport.addEventListener('touchstart', e => {
                 touchStartY = e.changedTouches[0].screenY;
+                startIdx = currentIdx; // Freeze the index at start
             }, { passive: true });
 
             viewport.addEventListener('touchend', e => {
@@ -1111,24 +1121,24 @@
             function handleSwipe() {
                 if (isScrolling) return; // Ignore if already handling a swipe
                 
-                const swipeThreshold = 40; // Adjusted for better sensitivity
+                const swipeThreshold = 40; 
                 const diff = touchStartY - touchEndY;
 
                 if (Math.abs(diff) > swipeThreshold) {
                     isScrolling = true;
                     if (diff > 0) {
                         // Swipe Up -> Next
-                        if (currentIdx < sections.length - 1) {
-                            viewport.scrollTo({ top: sections[currentIdx + 1].offsetTop, behavior: 'smooth' });
+                        if (startIdx < sections.length - 1) {
+                            viewport.scrollTo({ top: sections[startIdx + 1].offsetTop, behavior: 'smooth' });
                         }
                     } else {
                         // Swipe Down -> Prev
-                        if (currentIdx > 0) {
-                            viewport.scrollTo({ top: sections[currentIdx - 1].offsetTop, behavior: 'smooth' });
+                        if (startIdx > 0) {
+                            viewport.scrollTo({ top: sections[startIdx - 1].offsetTop, behavior: 'smooth' });
                         }
                     }
-                    // Release lock after animation
-                    setTimeout(() => { isScrolling = false; }, 600);
+                    // Release lock after animation to prevent "fast skipping"
+                    setTimeout(() => { isScrolling = false; }, 700);
                 }
             }
 
