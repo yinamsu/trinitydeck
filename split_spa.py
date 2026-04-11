@@ -37,6 +37,53 @@ FILE_TEMPLATE = """<!DOCTYPE html>
         .prev-btn {{ left: 30px; }}
         .next-btn {{ right: 30px; }}
         .nav-btn.hidden {{ display: none; }}
+
+        /* Visit Button Style & Animation */
+        .visit-btn {{
+            color: #FFFFFF !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.25);
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: heartbeat-glow 2s infinite ease-in-out;
+            cursor: pointer;
+        }}
+        .visit-btn:hover {{
+            transform: scale(1.05);
+            background: rgba(59, 130, 246, 0.35);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+            border-color: rgba(59, 130, 246, 0.8);
+        }}
+        .visit-btn.gfex-btn {{
+            background: rgba(139, 92, 246, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+            animation-name: heartbeat-glow-purple;
+        }}
+        .visit-btn.gfex-btn:hover {{
+            background: rgba(139, 92, 246, 0.35);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.7);
+            border-color: rgba(139, 92, 246, 0.8);
+        }}
+
+        @keyframes heartbeat-glow {{
+            0% {{ box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }}
+            50% {{ box-shadow: 0 0 25px rgba(59, 130, 246, 0.7); }}
+            100% {{ box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }}
+        }}
+        @keyframes heartbeat-glow-purple {{
+            0% {{ box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }}
+            50% {{ box-shadow: 0 0 25px rgba(139, 92, 246, 0.7); }}
+            100% {{ box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }}
+        }}
     </style>
 </head>
 <body>
