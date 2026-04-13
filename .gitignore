@@ -1,0 +1,14 @@
+# Local backups and temporary folders
+backup_v1_ko/
+*.bak
+*.tmp
+
+# IDE / OS specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# OS specific temporary files
+*.tmp
+*.log
