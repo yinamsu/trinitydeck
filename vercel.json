@@ -1,0 +1,38 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "deck.trinitycorelabs.com"
+        }
+      ],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "trinitycorelabs.com"
+        }
+      ],
+      "destination": "/landing.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trinitycorelabs.com"
+        }
+      ],
+      "destination": "/landing.html"
+    },
+    {
+      "source": "/",
+      "destination": "/landing.html"
+    }
+  ]
+}
