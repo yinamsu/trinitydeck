@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinity Labs Pitch Deck</title>
+    <title>Trinity Core Labs Pitch Deck</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&family=Gothic+A1:wght@300;400;500;700;800&display=swap"
@@ -357,22 +357,51 @@
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
 
-        .lang-btn:hover:not(.active) {
-            color: #FFFFFF;
-            background: rgba(255, 255, 255, 0.05);
-        }
+            .lang-btn:hover:not(.active) {
+                color: #FFFFFF;
+                background: rgba(255, 255, 255, 0.05);
+            }
 
-        @media (max-width: 768px) {
-            #lang-switcher {
-                top: 20px;
-                right: 20px;
+            /* Watermark Style */
+            .watermark {
+                position: absolute;
+                top: 25px;
+                right: 30px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                opacity: 0.7;
+                pointer-events: none;
+                z-index: 5;
+                user-select: none;
+                mix-blend-mode: screen;
             }
-            .lang-btn {
-                padding: 4px 12px;
-                font-size: 11px;
+            .watermark img {
+                height: 28px;
+                filter: grayscale(1) brightness(1.5);
             }
-        }
-    </style>
+            .watermark-text {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+                font-family: 'Gothic A1', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                color: #FFFFFF;
+                letter-spacing: 0.5px;
+            }
+
+            @media (max-width: 768px) {
+                #lang-switcher {
+                    top: 20px;
+                    right: 20px;
+                }
+                .lang-btn {
+                    padding: 4px 12px;
+                    font-size: 11px;
+                }
+            }
+        </style>
 </head>
 
 <body>
@@ -395,6 +424,13 @@
         <section class="slide-section" id="section-1">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Background Ambient Shapes -->
                 <div data-object="true" data-object-type="shape"
                     style="position: absolute; left: 750px; top: -250px; width: 900px; height: 900px; border-radius: 50%; background-color: rgba(59, 130, 246, 0.04); z-index: 1;">
@@ -411,14 +447,14 @@
                 </div>
                 <!-- Main Visual / Title Section -->
                 <div data-object="true" data-object-type="textbox"
-                    style="position: absolute; left: 0; top: 210px; width: 1280px; height: 120px; z-index: 10;">
+                    style="position: absolute; left: 0; top: 180px; width: 1280px; height: 160px; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <p
-                        style="margin: 0; padding: 0; text-align: center; color: #FFFFFF; font-size: 80px; font-weight: 800; letter-spacing: -3px; font-family: 'Gothic A1', sans-serif;" data-i18n="s1-title">
-                        Trinity Labs</p>
+                        style="margin: 0; padding: 0; text-align: center; color: #FFFFFF; font-size: 96px; font-weight: 800; letter-spacing: -4px; font-family: 'Gothic A1', sans-serif;" data-i18n="s1-title">
+                        Trinity Core Labs</p>
                 </div>
 
                 <div data-object="true" data-object-type="textbox"
-                    style="position: absolute; left: 140px; top: 400px; width: 1000px; height: 80px; z-index: 10;">
+                    style="position: absolute; left: 140px; top: 430px; width: 1000px; height: 80px; z-index: 10;">
                     <div
                         style="width: 50px; height: 3px; background-color: #3B82F6; margin: 0 auto 30px auto; border-radius: 2px;">
                     </div>
@@ -428,7 +464,7 @@
                 </div>
 
                 <div data-object="true" data-object-type="textbox"
-                    style="position: absolute; left: 140px; top: 540px; width: 1000px; height: 60px; z-index: 10;">
+                    style="position: absolute; left: 140px; top: 560px; width: 1000px; height: 60px; z-index: 10;">
                     <p
                         style="margin: 0; padding: 0; text-align: center; color: #94A3B8; font-size: 20px; font-weight: 400; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; word-break: keep-all;" data-i18n="s1-desc">
                         아이디어 단계의 서비스를 <span style="color: #F8FAFC; font-weight: 700;">'기관급' 품질</span>로 양산하는 고효율 빌더 그룹
@@ -440,6 +476,13 @@
         <section class="slide-section" id="section-2">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Title Area -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 80px; top: 40px; width: 760px; height: 60px; z-index: 10;">
@@ -541,13 +584,12 @@
                 </div>
                 <!-- Card 3: Header -->
                 <div data-object="true" data-object-type="textbox"
-                    style="position: absolute; left: 730px; top: 240px; width: 420px; height: 70px; z-index: 10;">
+                    style="position: absolute; left: 730px; top: 230px; width: 420px; height: 90px; z-index: 10;">
                     <p style="margin: 0; color: #93C5FD; font-size: 14px; font-weight: 700; letter-spacing: 2px;" data-i18n="s2-c3-tag">03.
                         THE
                         SOLUTION</p>
-                    <p style="margin: 8px 0 0 0; color: #FFFFFF; font-size: 32px; font-weight: 800; line-height: 1.3;" data-i18n="s2-c3-title">
-                        Trinity
-                        Labs의 해법</p>
+                    <p style="margin: 8px 0 0 0; color: #FFFFFF; font-size: 30px; font-weight: 800; line-height: 1.2; word-break: keep-all;" data-i18n="s2-c3-title">
+                        Trinity Core Labs의 해법</p>
                 </div>
                 <!-- Card 3: Box 1 (Background) -->
                 <div data-object="true" data-object-type="shape"
@@ -600,6 +642,13 @@
         <section class="slide-section" id="section-3">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header Section -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -687,6 +736,13 @@
         <section class="slide-section" id="section-4">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header Section -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -789,6 +845,13 @@
         <section class="slide-section" id="section-5">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -895,6 +958,13 @@
         <section class="slide-section" id="section-6">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -1009,6 +1079,13 @@
         <section class="slide-section" id="section-7">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -1091,7 +1168,7 @@
                             <!-- Trinity Circle -->
                             <div
                                 style="width: 160px; height: 160px; border-radius: 50%; background: linear-gradient(135deg, #1E3A8A 0%, #172554 100%); border: 2px solid #3B82F6; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2; box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);">
-                                <p style="margin: 0; color: #FFFFFF; font-size: 18px; font-weight: 800;">Trinity Labs
+                                <p style="margin: 0; color: #FFFFFF; font-size: 17px; font-weight: 800; text-align: center; word-break: keep-all; line-height: 1.2;">Trinity Core Labs
                                 </p>
                                 <p style="margin: 5px 0 0 0; color: #60A5FA; font-size: 12px; font-weight: 700;">TECH /
                                     OPS</p>
@@ -1138,6 +1215,13 @@
         <section class="slide-section" id="section-8">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 40px; width: 1100px; height: 46px; z-index: 10;">
@@ -1318,6 +1402,13 @@
         <section class="slide-section" id="section-9">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -1449,6 +1540,13 @@
         <section class="slide-section" id="section-10">
             <div class="slide-container"
                 style="position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #050810; font-family: 'Noto Sans KR', sans-serif;">
+                <div class="watermark">
+                    <img src="logo.png" alt="Watermark">
+                    <div class="watermark-text">
+                        <div>TRINITY</div>
+                        <div>CORE LABS</div>
+                    </div>
+                </div>
                 <!-- Header -->
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 60px; width: 1100px; height: 56px; z-index: 10;">
@@ -1459,8 +1557,8 @@
                 <div data-object="true" data-object-type="textbox"
                     style="position: absolute; left: 90px; top: 120px; width: 1100px; height: 40px; z-index: 10;">
                     <p
-                        style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px;" data-i18n="s10-subtitle">
-                        Trinity Labs는 시드 5억 원을 조달하여 <span style="color: #E2E8F0; font-weight: 700;">12개월 내 핵심 매출
+                        style="margin: 0; padding: 0; color: #94A3B8; font-size: 22px; font-weight: 400; letter-spacing: -0.5px; word-break: keep-all;" data-i18n="s10-subtitle">
+                        Trinity Core Labs는 시드 5억 원을 조달하여 <span style="color: #E2E8F0; font-weight: 700;">12개월 내 핵심 매출
                             지표</span>를 확보하고자 합니다.
                     </p>
                 </div>
@@ -1583,7 +1681,7 @@
                     "landscape-hint": "더 나은 시청 환경을 위해<br><b>기기를 가로로 회전</b>해 주세요.",
                     "close-hint": "계속보기",
                     "s1-sub": "SEED PITCH DECK | AI · DATA INTELLIGENCE · WEB3 INFRASTRUCTURE",
-                    "s1-title": "Trinity Labs",
+                    "s1-title": "Trinity Core Labs",
                     "s1-subtitle": 'AI를 도구 삼아 <span style="color: #60A5FA; font-weight: 700;">불가능을 가능케 하는 3인의 마스터</span>',
                     "s1-desc": '아이디어 단계의 서비스를 <span style="color: #F8FAFC; font-weight: 700;">\'기관급\' 품질</span>로 양산하는 고효율 빌더 그룹',
                     "s2-title": '왜 지금인가 <span style="color: #64748B; font-weight: 300;">(Why Now)</span>',
@@ -1599,7 +1697,7 @@
                     "s2-c2-b2": "안정적인 아키텍처와 강력한 보안",
                     "s2-c2-b3": "글로벌 규제 및 컴플라이언스 대응",
                     "s2-c3-tag": "03. THE SOLUTION",
-                    "s2-c3-title": "Trinity Labs의 해법",
+                    "s2-c3-title": "Trinity Core Labs의 해법",
                     "s2-c3-b1-title": "Human-in-the-loop 검증",
                     "s2-c3-b1-desc": "AI-native 개발 속도에 시니어급 검증 체계를 결합",
                     "s2-c3-b2-title": "정예 실행 조직",
@@ -1701,7 +1799,7 @@
                     "s9-m3-b2": "다수의 글로벌 JV 및 M&A 프로젝트 수행. 외국환거래, 국제무역 및 해외중재 등 기업법 전문가",
                     "s9-m3-b3": "선제적 규제 대응 및 글로벌 컴플라이언스 체계 설계",
                     "s10-title": '투자 제안 <span style="color: #64748B; font-weight: 300;">(Investment & Milestones)</span>',
-                    "s10-subtitle": 'Trinity Labs는 시드 5억 원을 조달하여 <span style="color: #E2E8F0; font-weight: 700;">12개월 내 핵심 매출 지표</span>를 확보하고자 합니다.',
+                    "s10-subtitle": 'Trinity Core Labs는 시드 5억 원을 조달하여 <span style="color: #E2E8F0; font-weight: 700;">12개월 내 핵심 매출 지표</span>를 확보하고자 합니다.',
                     "s10-fund-tag": "SEED ROUND FUNDING ASK",
                     "s10-use-title": "자금 사용 계획 (Use of Funds)",
                     "s10-ms-title": "12개월 목표 (Milestones)",
@@ -1719,7 +1817,7 @@
                     "landscape-hint": "For the best experience,<br><b>please rotate your device</b> to landscape.",
                     "close-hint": "Continue",
                     "s1-sub": "SEED PITCH DECK | AI · DATA INTELLIGENCE · WEB3 INFRASTRUCTURE",
-                    "s1-title": "Trinity Labs",
+                    "s1-title": "Trinity Core Labs",
                     "s1-subtitle": 'An Elite Trio <span style="color: #60A5FA; font-weight: 700;">Making the Impossible Possible</span> with AI',
                     "s1-desc": 'A hyper-efficient collective transforming ideas into <span style="color: #F8FAFC; font-weight: 700;">"Institutional-Grade"</span> realities.',
                     "s2-title": 'The New Era <span style="color: #64748B; font-weight: 300;">(Why Now)</span>',
@@ -1735,7 +1833,7 @@
                     "s2-c2-b2": "Robust architecture & elite security",
                     "s2-c2-b3": "Global compliance & regulatory readiness",
                     "s2-c3-tag": "03. THE SOLUTION",
-                    "s2-c3-title": "The Trinity Labs Formula",
+                    "s2-c3-title": "The Trinity Core Labs Formula",
                     "s2-c3-b1-title": "Human-in-the-loop Validation",
                     "s2-c3-b1-desc": "Combining AI-native speed with senior-level precision",
                     "s2-c3-b2-title": "Elite Execution Team",
@@ -1837,7 +1935,7 @@
                     "s9-m3-b2": "Corporate Law Expert: Executed numerous global JV & M&A projects. Specialized in Foreign Exchange, International Trade, and Overseas Arbitration.",
                     "s9-m3-b3": "Designing proactive regulatory responses and global compliance frameworks.",
                     "s10-title": 'Investment Suggestion <span style="color: #64748B; font-weight: 300;">(Investment)</span>',
-                    "s10-subtitle": 'Trinity Labs is raising $400k (500M KRW) to reach <span style="color: #E2E8F0; font-weight: 700;">key revenue milestones within 12 months</span>.',
+                    "s10-subtitle": 'Trinity Core Labs is raising $400k (500M KRW) to reach <span style="color: #E2E8F0; font-weight: 700;">key revenue milestones within 12 months</span>.',
                     "s10-fund-tag": "SEED ROUND FUNDING ASK",
                     "s10-use-title": "Use of Funds",
                     "s10-ms-title": "12-Month Milestones",
