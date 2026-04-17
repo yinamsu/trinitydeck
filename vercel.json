@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/",
@@ -9,6 +10,10 @@
         }
       ],
       "destination": "/deck.html"
+    },
+    {
+      "source": "/",
+      "destination": "/landing.html"
     }
   ]
 }
