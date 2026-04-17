@@ -8,27 +8,7 @@
           "value": "deck.trinitycorelabs.com"
         }
       ],
-      "destination": "/index.html"
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "trinitycorelabs.com"
-        }
-      ],
-      "destination": "/landing.html"
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.trinitycorelabs.com"
-        }
-      ],
-      "destination": "/landing.html"
+      "destination": "/deck.html"
     }
   ]
 }
