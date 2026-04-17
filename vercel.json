@@ -11,7 +11,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
@@ -21,17 +21,13 @@
       "destination": "/landing.html"
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "www.trinitycorelabs.com"
         }
       ],
-      "destination": "/landing.html"
-    },
-    {
-      "source": "/",
       "destination": "/landing.html"
     }
   ]
