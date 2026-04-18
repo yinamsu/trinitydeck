@@ -93,10 +93,12 @@
         }
 
         .main-logo {
-            height: 200px;
-            filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.6));
+            height: 280px;
+            filter: contrast(110%) drop-shadow(0 0 40px rgba(59, 130, 246, 0.6));
             animation: pulse 4s infinite ease-in-out;
             mix-blend-mode: screen;
+            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 65%);
+            mask-image: radial-gradient(circle, black 30%, transparent 65%);
         }
 
         @keyframes pulse {
@@ -184,7 +186,7 @@
 
     <div class="content">
         <div class="logo-container">
-            <img src="logo.png" alt="Trinity Core Labs" class="main-logo">
+            <img src="logo_final.png" alt="Trinity Core Labs" class="main-logo">
         </div>
         
         <h1>Trinity Core Labs</h1>
