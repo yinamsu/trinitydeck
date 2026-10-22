@@ -1023,6 +1023,353 @@
             filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
             background: transparent;
         }
+
+        /* ========================================================
+           Mobile Responsive Styles (max-width: 768px)
+           ======================================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            /* 1. Header */
+            .nav-inner {
+                height: 58px;
+            }
+
+            .brand-link {
+                gap: 8px;
+                font-size: 16px;
+            }
+
+            .brand-logo {
+                width: 24px;
+                height: 24px;
+            }
+
+            .studio-pill {
+                display: none; /* 모바일 헤더 너비 확보 */
+            }
+
+            .nav-actions {
+                gap: 8px;
+            }
+
+            .nav-link {
+                display: none; /* 아키텍처, 수익화 링크 숨김 */
+            }
+
+            .btn-launch {
+                padding: 6px 12px;
+                font-size: 12px;
+                gap: 5px;
+                border-radius: 6px;
+                white-space: nowrap;
+                letter-spacing: -0.3px;
+            }
+
+            .btn-launch span {
+                font-size: 12px;
+            }
+
+            .btn-launch i {
+                font-size: 10px;
+            }
+
+            /* 2. Hero Section */
+            .hero-section {
+                padding: 40px 0 32px 0;
+            }
+
+            .badge-hero {
+                font-size: 10px;
+                padding: 4px 12px;
+                margin-bottom: 16px;
+                letter-spacing: 0.5px;
+                max-width: 100%;
+                text-align: center;
+                line-height: 1.4;
+            }
+
+            h1.hero-title {
+                font-size: clamp(26px, 7.5vw, 34px);
+                line-height: 1.35;
+                letter-spacing: -1px;
+                margin-bottom: 16px;
+                word-break: keep-all;
+            }
+
+            .hero-title-main {
+                font-size: clamp(22px, 6.5vw, 28px);
+                margin-bottom: 4px;
+            }
+
+            .hero-title-sub {
+                font-size: clamp(25px, 7.5vw, 34px);
+                padding: 2px 0;
+            }
+
+            .nowrap {
+                white-space: nowrap;
+            }
+
+            p.hero-desc {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 28px;
+                padding: 0 4px;
+                word-break: keep-all;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 36px;
+                width: 100%;
+            }
+
+            .btn-primary-glow,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            /* 3. Interactive Mockup Card */
+            .mockup-container {
+                padding: 16px 12px;
+                border-radius: 16px;
+            }
+
+            .mockup-header {
+                padding-bottom: 12px;
+                margin-bottom: 16px;
+            }
+
+            .mockup-status {
+                font-size: 11px;
+            }
+
+            .wave-box {
+                padding: 14px 10px;
+                border-radius: 10px;
+            }
+
+            .wave-title {
+                font-size: 12px;
+            }
+
+            .wave-bars {
+                height: 48px;
+                gap: 3px;
+            }
+
+            .wave-foot {
+                font-size: 10px;
+                margin-top: 12px;
+            }
+
+            .result-preview-card {
+                padding: 16px 12px;
+                border-radius: 12px;
+            }
+
+            .result-title {
+                font-size: 16px;
+            }
+
+            .cost-comparison-box {
+                padding: 10px 10px;
+            }
+
+            .cost-label {
+                font-size: 10px;
+            }
+
+            .cost-val {
+                font-size: 13px;
+            }
+
+            .cost-val.highlight {
+                font-size: 15px;
+            }
+
+            .cost-save-pill {
+                font-size: 11px;
+                padding: 3px 6px;
+            }
+
+            /* 4. Stats */
+            .meta-stats-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-top: 24px;
+            }
+
+            .stat-card {
+                padding: 16px 10px;
+                border-radius: 12px;
+            }
+
+            .stat-number {
+                font-size: 26px;
+                margin-bottom: 4px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            /* 5. Global Sections */
+            section {
+                padding: 60px 0;
+            }
+
+            .section-header {
+                margin-bottom: 32px;
+            }
+
+            .section-eyebrow {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            h2.section-title {
+                font-size: 26px;
+                line-height: 1.3;
+                letter-spacing: -0.5px;
+                margin-bottom: 12px;
+                word-break: keep-all;
+            }
+
+            p.section-desc {
+                font-size: 14px;
+                line-height: 1.6;
+                padding: 0 4px;
+                word-break: keep-all;
+            }
+
+            /* 6. Comparison Grid */
+            .comp-card {
+                padding: 24px 18px;
+                border-radius: 16px;
+            }
+
+            .comp-name {
+                font-size: 18px;
+            }
+
+            .comp-item {
+                font-size: 13px;
+            }
+
+            /* 7. Features Grid */
+            .feature-box {
+                padding: 24px 18px;
+                border-radius: 16px;
+            }
+
+            .feature-icon-wrap {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .feature-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .feature-text {
+                font-size: 14px;
+                line-height: 1.55;
+                margin-bottom: 16px;
+            }
+
+            /* 8. Sound Chips */
+            .sound-chips-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .sound-chip {
+                padding: 12px 10px;
+                border-radius: 10px;
+            }
+
+            .sound-chip-title {
+                font-size: 12px;
+            }
+
+            .sound-chip-spec {
+                font-size: 10px;
+            }
+
+            /* 9. Monetization Pipeline */
+            .pipeline-card {
+                padding: 24px 16px;
+                border-radius: 18px;
+            }
+
+            .pipeline-steps {
+                gap: 12px;
+                margin-top: 24px;
+            }
+
+            .pipe-step-item {
+                padding: 16px 14px;
+                border-radius: 12px;
+            }
+
+            .pipe-title {
+                font-size: 15px;
+            }
+
+            .pipe-desc {
+                font-size: 12px;
+            }
+
+            /* 10. Bottom CTA */
+            .bottom-cta-section {
+                padding: 60px 0 80px 0;
+            }
+
+            .cta-banner {
+                padding: 36px 18px;
+                border-radius: 20px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+                line-height: 1.3;
+                word-break: keep-all;
+            }
+
+            .cta-banner p {
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 24px;
+                word-break: keep-all;
+            }
+
+            /* 11. Site Footer */
+            footer.site-footer {
+                padding: 36px 0;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .footer-brand {
+                flex-direction: column;
+                gap: 6px;
+            }
+        }
     </style>
 </head>
 
@@ -1069,7 +1416,10 @@
 
                 <h1 class="hero-title">
                     <span class="hero-title-main">카센터 가기 전,</span>
-                    <span class="hero-title-sub">5초만에 AI가 듣고 진단하는 AutoSound</span>
+                    <span class="hero-title-sub">
+                        <span class="nowrap">5초만에 AI가 듣고</span>
+                        <span class="nowrap">진단하는 AutoSound</span>
+                    </span>
                 </h1>
 
                 <p class="hero-desc">
