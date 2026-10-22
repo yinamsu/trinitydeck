@@ -5,15 +5,8 @@
     <title>Trinity Core Labs</title>
     <script>
         (function() {
-            var hostname = window.location.hostname;
-            // deck.trinitycorelabs.com으로 접속한 경우
-            if (hostname.includes('deck')) {
-                window.location.replace('/deck.html');
-            } 
-            // 그 외(www, 메인 도메인 등) 모든 경우
-            else {
-                window.location.replace('/landing.html');
-            }
+            // 신규 피치덱 개편 작업으로 인해 모든 접속을 랜딩페이지로 리다이렉트
+            window.location.replace('/landing.html');
         })();
     </script>
     <style>

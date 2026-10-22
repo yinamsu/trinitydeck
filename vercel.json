@@ -1,3 +1,25 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/deck",
+      "destination": "/landing.html",
+      "permanent": false
+    },
+    {
+      "source": "/deck.html",
+      "destination": "/landing.html",
+      "permanent": false
+    },
+    {
+      "source": "/:slide(\\d+)",
+      "destination": "/landing.html",
+      "permanent": false
+    },
+    {
+      "source": "/:slide(\\d+).html",
+      "destination": "/landing.html",
+      "permanent": false
+    }
+  ]
 }
