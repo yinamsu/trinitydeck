@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoSound (SoundScanner) | Trinity Core Labs Project #01</title>
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Access Gate Lock: Prevent FOUC and verify session -->
+    <style id="auth-lock-style">
+        body:not(.authenticated) > *:not(#auth-gate) {
+            display: none !important;
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                if (sessionStorage.getItem('tcl_project_key') === 'TCL2026') {
+                    window.addEventListener('DOMContentLoaded', function() {
+                        document.body.classList.add('authenticated');
+                        var gate = document.getElementById('auth-gate');
+                        if (gate) gate.remove();
+                    });
+                }
+            } catch (e) {}
+        })();
+    </script>
     <link
         href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap"
         rel="stylesheet">
@@ -1369,11 +1389,268 @@
                 flex-direction: column;
                 gap: 6px;
             }
+
+            .footer-meta-block {
+                text-align: center !important;
+            }
+        }
+
+        /* ========================================================
+           Auth Gate Modal Styles
+           ======================================================== */
+        .auth-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 16, 0.94);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-gate-card {
+            width: 100%;
+            max-width: 440px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 16, 32, 0.95) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(59, 130, 246, 0.2);
+            position: relative;
+            animation: authFadeIn 0.35s ease;
+        }
+
+        @keyframes authFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .auth-gate-logo-wrap {
+            margin-bottom: 20px;
+        }
+
+        .auth-gate-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.8));
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            color: #FB7185;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            font-family: 'Gothic A1', 'Noto Sans KR', sans-serif;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: #94A3B8;
+            line-height: 1.55;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .auth-input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        #auth-key-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: rgba(5, 8, 16, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 2px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        #auth-key-input:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        #auth-key-input.error {
+            border-color: #F43F5E;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .auth-error-msg {
+            font-size: 12px;
+            color: #FB7185;
+            font-weight: 600;
+            min-height: 18px;
+            margin-bottom: 14px;
+            text-align: left;
+            padding-left: 4px;
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+            transition: all 0.2s;
+        }
+
+        .auth-submit-btn:hover {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .auth-gate-footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .auth-gate-footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            border-bottom: 1px dotted #475569;
+            transition: color 0.2s;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .auth-gate-footer a:hover {
+            color: #38BDF8;
+            border-bottom-color: #38BDF8;
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Access Gate Modal (Restricted) -->
+    <div id="auth-gate" class="auth-gate-overlay">
+        <div class="auth-gate-card">
+            <div class="auth-gate-logo-wrap">
+                <img src="logo_transparent.png" alt="Trinity Core Labs" class="auth-gate-logo">
+            </div>
+
+            <div class="auth-badge">
+                <i class="fa-solid fa-lock"></i>
+                <span>RESTRICTED ACCESS</span>
+            </div>
+
+            <h2 class="auth-title">Project #01: AutoSound</h2>
+            <p class="auth-subtitle">
+                본 프로젝트는 승인된 관계자에게만 열람이 제한되어 있습니다.<br>
+                액세스 키(Access Key)를 입력해 주세요.
+            </p>
+
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div class="auth-input-wrapper">
+                    <i class="fa-solid fa-key auth-input-icon"></i>
+                    <input type="password" id="auth-key-input" placeholder="액세스 키 입력" autocomplete="off" autofocus required>
+                </div>
+
+                <p id="auth-error-msg" class="auth-error-msg"></p>
+
+                <button type="submit" id="auth-submit-btn" class="auth-submit-btn">
+                    <span>잠금 해제 (Unlock)</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-gate-footer">
+                <p>액세스 권한 및 열람 문의</p>
+                <a href="mailto:contact@trinitycorelabs.com">contact@trinitycorelabs.com</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            var input = document.getElementById('auth-key-input');
+            var errorMsg = document.getElementById('auth-error-msg');
+            var val = (input.value || '').trim();
+
+            if (val === 'TCL2026') {
+                try {
+                    sessionStorage.setItem('tcl_project_key', 'TCL2026');
+                } catch (err) {}
+
+                var gate = document.getElementById('auth-gate');
+                gate.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                gate.style.opacity = '0';
+                gate.style.pointerEvents = 'none';
+                document.body.classList.add('authenticated');
+
+                setTimeout(function() {
+                    gate.remove();
+                }, 300);
+            } else {
+                input.classList.remove('error');
+                void input.offsetWidth;
+                input.classList.add('error');
+                errorMsg.textContent = '액세스 키가 올바르지 않습니다. 다시 입력해 주세요.';
+                input.value = '';
+                input.focus();
+            }
+        }
+    </script>
 
     <!-- Ambient Glow Background -->
     <div class="ambient-glow">
@@ -1827,8 +2104,11 @@
                     <span style="color: var(--text-muted); font-weight: 400; font-size: 13px;">| An Agile AI Studio
                         Making the Impossible Possible</span>
                 </div>
-                <div style="font-size: 13px; color: var(--text-muted);">
-                    © 2026 Trinity Core Labs. All rights reserved.
+                <div style="font-size: 13px; color: var(--text-muted); text-align: right;" class="footer-meta-block">
+                    <div style="margin-bottom: 4px;">
+                        Inquiries: <a href="mailto:contact@trinitycorelabs.com" style="color: #94A3B8; text-decoration: none; border-bottom: 1px dotted #64748B;">contact@trinitycorelabs.com</a>
+                    </div>
+                    <div>&copy; 2026 Trinity Core Labs. All rights reserved.</div>
                 </div>
             </div>
         </div>

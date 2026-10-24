@@ -23,14 +23,15 @@
 
         body, html {
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             background-color: var(--bg-color);
             color: var(--text-white);
             font-family: 'Gothic A1', 'Noto Sans KR', sans-serif;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
         /* Animated Background */
@@ -82,7 +83,7 @@
             z-index: 10;
             text-align: center;
             max-width: 900px;
-            padding: 20px;
+            padding: 40px 20px 80px 20px;
         }
 
         /* Logo Animation */
@@ -170,11 +171,38 @@
             color: #E2E8F0;
         }
 
+        /* Site Footer */
+        .site-footer {
+            position: absolute;
+            bottom: 24px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            font-size: 13px;
+            color: #64748B;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .site-footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            border-bottom: 1px dotted #475569;
+            transition: all 0.2s;
+        }
+
+        .site-footer a:hover {
+            color: #38BDF8;
+            border-bottom-color: #38BDF8;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 48px; letter-spacing: -1px; }
             .slogan { font-size: 20px; }
             .main-logo { height: 140px; }
+            .content { padding-bottom: 90px; }
+            .site-footer { bottom: 16px; font-size: 12px; }
         }
     </style>
 </head>
@@ -204,5 +232,14 @@
             <span class="status-text">COMING SOON</span>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <p style="margin-bottom: 4px;">
+            Inquiries: <a href="mailto:contact@trinitycorelabs.com">contact@trinitycorelabs.com</a>
+        </p>
+        <p style="color: #475569; font-size: 12px;">
+            &copy; 2026 Trinity Core Labs. All rights reserved.
+        </p>
+    </footer>
 </body>
 </html>
