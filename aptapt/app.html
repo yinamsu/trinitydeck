@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aptapt (아파트아파트) | 실거래가 인텔리전스 | Trinity Core Labs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Access Gate Lock: Prevent FOUC and verify session -->
+    <style id="auth-lock-style">
+        body:not(.authenticated) > *:not(#auth-gate) {
+            display: none !important;
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                if (sessionStorage.getItem('tcl_project_key') === 'TCL2026') {
+                    window.addEventListener('DOMContentLoaded', function() {
+                        document.body.classList.add('authenticated');
+                        var gate = document.getElementById('auth-gate');
+                        if (gate) gate.remove();
+                    });
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-base: #050810;
+            --bg-bar: rgba(10, 16, 32, 0.94);
+            --border-bar: rgba(255, 255, 255, 0.08);
+            --accent-emerald: #10B981;
+            --accent-cyan: #06B6D4;
+            --accent-blue: #3B82F6;
+            --text-heading: #F8FAFC;
+            --text-body: #94A3B8;
+            --text-muted: #64748B;
+            --header-height: 52px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-base);
+            color: var(--text-heading);
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Top Bar */
+        .app-topbar {
+            width: 100%;
+            height: var(--header-height);
+            background: var(--bg-bar);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-bar);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-heading);
+            font-weight: 700;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .brand-link:hover {
+            opacity: 0.85;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.7));
+        }
+
+        .studio-pill {
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.02em;
+        }
+
+        .app-title {
+            font-size: 13px;
+            color: var(--text-body);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            font-weight: 800;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .live-tag .dot {
+            width: 6px;
+            height: 6px;
+            background: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10B981;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.85); }
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-body);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .bar-btn:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bar-btn.intro-btn {
+            color: #6EE7B7;
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .bar-btn.intro-btn:hover {
+            color: #A7F3D0;
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.45);
+        }
+
+        /* App Container */
+        .app-viewport {
+            width: 100%;
+            height: calc(100vh - var(--header-height));
+            position: relative;
+            background-color: #0b1120;
+        }
+
+        .app-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background-color: #0b1120;
+        }
+
+        /* Loader */
+        .frame-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0B132B 0%, #050810 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 10;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .frame-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(16, 185, 129, 0.15);
+            border-top-color: var(--accent-emerald);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 13px;
+            color: var(--text-body);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* ========================================================
+           Auth Gate Modal Styles
+           ======================================================== */
+        .auth-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 16, 0.94);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-gate-card {
+            width: 100%;
+            max-width: 440px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 16, 32, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(16, 185, 129, 0.2);
+            position: relative;
+            animation: authFadeIn 0.35s ease;
+        }
+
+        @keyframes authFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .auth-gate-logo-wrap {
+            margin-bottom: 20px;
+        }
+
+        .auth-gate-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.8));
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 9999px;
+            padding: 5px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #34D399;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            font-size: 13px;
+            color: #94A3B8;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .auth-input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .auth-input-wrapper input {
+            width: 100%;
+            height: 52px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0 16px 0 44px;
+            font-size: 15px;
+            color: #FFFFFF;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .auth-input-wrapper input:focus {
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .auth-input-wrapper input.error {
+            border-color: #EF4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .auth-error-msg {
+            color: #F87171;
+            font-size: 12px;
+            min-height: 18px;
+            margin-bottom: 14px;
+            text-align: left;
+            padding-left: 4px;
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+        }
+
+        .auth-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(16, 185, 129, 0.5);
+            filter: brightness(1.08);
+        }
+
+        .auth-gate-footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .auth-gate-footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            border-bottom: 1px dotted #475569;
+            transition: color 0.2s;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .auth-gate-footer a:hover {
+            color: #34D399;
+            border-bottom-color: #34D399;
+        }
+
+        @media (max-width: 640px) {
+            .app-title {
+                display: none;
+            }
+            .bar-btn span {
+                display: none;
+            }
+            .bar-btn {
+                padding: 6px 10px;
+            }
+            .topbar-left {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Access Gate Modal (Restricted) -->
+    <div id="auth-gate" class="auth-gate-overlay">
+        <div class="auth-gate-card">
+            <div class="auth-gate-logo-wrap">
+                <img src="/logo_transparent.png" alt="Trinity Core Labs" class="auth-gate-logo">
+            </div>
+
+            <div class="auth-badge">
+                <i class="fa-solid fa-lock"></i>
+                <span>RESTRICTED ACCESS</span>
+            </div>
+
+            <h2 class="auth-title">Project #02: Aptapt</h2>
+            <p class="auth-subtitle">
+                본 프로젝트는 승인된 관계자에게만 열람이 제한되어 있습니다.<br>
+                액세스 키(Access Key)를 입력해 주세요.
+            </p>
+
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div class="auth-input-wrapper">
+                    <i class="fa-solid fa-key auth-input-icon"></i>
+                    <input type="password" id="auth-key-input" placeholder="액세스 키 입력" autocomplete="off" autofocus required>
+                </div>
+
+                <p id="auth-error-msg" class="auth-error-msg"></p>
+
+                <button type="submit" id="auth-submit-btn" class="auth-submit-btn">
+                    <span>잠금 해제 (Unlock)</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-gate-footer">
+                <p>액세스 권한 및 열람 문의</p>
+                <a href="mailto:contact@trinitycorelabs.com">contact@trinitycorelabs.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Top Bar -->
+    <header class="app-topbar">
+        <div class="topbar-left">
+            <a href="/landing.html" class="brand-link" title="메인 랜딩으로 이동">
+                <img src="/logo_transparent.png" alt="Trinity Core Labs" class="brand-logo">
+                <span>Trinity Core Labs</span>
+            </a>
+            <span class="studio-pill">Project #02</span>
+            <div class="app-title">
+                <span>Aptapt</span>
+                <span class="live-tag"><span class="dot"></span>LIVE SERVICE</span>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <a href="/aptapt/intro" class="bar-btn intro-btn" title="프로젝트 소개 및 엔지니어링 명세 보기">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>소개 페이지</span>
+            </a>
+            <button id="btn-fullscreen" onclick="toggleFullScreen()" class="bar-btn" title="전체화면 전환">
+                <i class="fa-solid fa-expand"></i>
+                <span>전체화면</span>
+            </button>
+            <a href="https://aptapt-sand.vercel.app" target="_blank" rel="noopener noreferrer" class="bar-btn" title="새 브라우저 탭에서 단독 실행">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>새 탭 열기</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Live App Viewport -->
+    <main class="app-viewport">
+        <div id="frame-loader" class="frame-loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Aptapt 실거래가 인텔리전스 엔진 연결 중...</div>
+        </div>
+
+        <iframe 
+            id="aptapt-frame"
+            class="app-iframe"
+            src="https://aptapt-sand.vercel.app/"
+            title="Aptapt Live Service"
+            allow="geolocation; clipboard-write;"
+            onload="hideLoader()"
+        ></iframe>
+    </main>
+
+    <script>
+        function hideLoader() {
+            var loader = document.getElementById('frame-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function toggleFullScreen() {
+            var btn = document.getElementById('btn-fullscreen');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(function(err) {});
+                btn.innerHTML = '<i class="fa-solid fa-compress"></i><span>축소</span>';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    btn.innerHTML = '<i class="fa-solid fa-expand"></i><span>전체화면</span>';
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', function() {
+            var btn = document.getElementById('btn-fullscreen');
+            if (!document.fullscreenElement && btn) {
+                btn.innerHTML = '<i class="fa-solid fa-expand"></i><span>전체화면</span>';
+            }
+        });
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            var input = document.getElementById('auth-key-input');
+            var errorMsg = document.getElementById('auth-error-msg');
+            var val = (input.value || '').trim();
+
+            if (val === 'TCL2026') {
+                try {
+                    sessionStorage.setItem('tcl_project_key', 'TCL2026');
+                } catch (err) {}
+
+                var gate = document.getElementById('auth-gate');
+                gate.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                gate.style.opacity = '0';
+                gate.style.pointerEvents = 'none';
+                document.body.classList.add('authenticated');
+
+                setTimeout(function() {
+                    gate.remove();
+                }, 300);
+            } else {
+                input.classList.remove('error');
+                void input.offsetWidth;
+                input.classList.add('error');
+                errorMsg.textContent = '액세스 키가 올바르지 않습니다. 다시 입력해 주세요.';
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

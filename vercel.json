@@ -2,6 +2,16 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/aptapt",
+      "destination": "/aptapt/intro",
+      "permanent": false
+    },
+    {
+      "source": "/aptapt.html",
+      "destination": "/aptapt/intro",
+      "permanent": false
+    },
+    {
       "source": "/deck",
       "destination": "/landing.html",
       "permanent": false
