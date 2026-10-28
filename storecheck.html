@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoreCheck (스토어체크) | 소상공인 상권 리스크 및 생존율 예측 AI | Trinity Core Labs Project #04</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Access Gate Lock: Prevent FOUC and verify session -->
+    <style id="auth-lock-style">
+        body:not(.authenticated) > *:not(#auth-gate) {
+            display: none !important;
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                if (sessionStorage.getItem('tcl_project_key') === 'TCL2026') {
+                    window.addEventListener('DOMContentLoaded', function() {
+                        document.body.classList.add('authenticated');
+                        var gate = document.getElementById('auth-gate');
+                        if (gate) gate.remove();
+                    });
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        :root {
+            --bg-base: #050810;
+            --bg-card: rgba(13, 20, 38, 0.75);
+            --bg-card-hover: rgba(20, 32, 60, 0.85);
+            --accent-emerald: #10B981;
+            --accent-cyan: #06B6D4;
+            --accent-blue: #3B82F6;
+            --accent-purple: #8B5CF6;
+            --accent-amber: #F59E0B;
+            --accent-rose: #F43F5E;
+            --text-white: #FFFFFF;
+            --text-heading: #F8FAFC;
+            --text-body: #94A3B8;
+            --text-muted: #64748B;
+            --border-card: rgba(16, 185, 129, 0.22);
+            --border-card-hover: rgba(16, 185, 129, 0.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-heading);
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.16;
+            animation: pulse-orb 18s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-emerald) 0%, transparent 70%);
+            top: -150px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-amber) 0%, transparent 70%);
+            bottom: 10%;
+            right: -100px;
+            animation-duration: 22s;
+        }
+
+        .orb-3 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--accent-rose) 0%, transparent 70%);
+            top: 45%;
+            left: 20%;
+            opacity: 0.12;
+            animation-duration: 26s;
+        }
+
+        @keyframes pulse-orb {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.1) translate(30px, 20px); }
+            100% { transform: scale(0.95) translate(-20px, 40px); }
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation Header */
+        header.site-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(5, 8, 16, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-white);
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.6));
+        }
+
+        .studio-pill {
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(16, 185, 129, 0.18);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-link {
+            color: var(--text-body);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-white);
+        }
+
+        .btn-launch {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-launch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+            filter: brightness(1.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 56px 0 36px 0;
+            text-align: center;
+        }
+
+        .badge-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #34D399;
+            margin-bottom: 22px;
+            letter-spacing: 0.03em;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10B981;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5.5vw, 54px);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--text-heading);
+            word-break: keep-all;
+        }
+
+        .hero-title-main {
+            display: block;
+            color: #FFFFFF;
+            font-size: clamp(24px, 4vw, 38px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .hero-title-sub {
+            display: block;
+            background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: clamp(15px, 2vw, 18px);
+            color: var(--text-body);
+            max-width: 840px;
+            margin: 0 auto 36px auto;
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .btn-primary-glow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: #FFFFFF;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(16, 185, 129, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 16px 28px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+        }
+
+        /* Mockup Container */
+        .mockup-container {
+            background: rgba(10, 16, 32, 0.75);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(16, 185, 129, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-bottom: 50px;
+        }
+
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mockup-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .mockup-dots span:nth-child(1) { background: #EF4444; }
+        .mockup-dots span:nth-child(2) { background: #F59E0B; }
+        .mockup-dots span:nth-child(3) { background: #10B981; }
+
+        .mockup-status {
+            font-size: 12px;
+            font-weight: 700;
+            color: #34D399;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .mockup-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .scenario-box {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .scenario-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .scenario-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scenario-text {
+            font-size: 14px;
+            color: #E2E8F0;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 14px;
+            border-radius: 10px;
+            border-left: 3px solid #10B981;
+        }
+
+        .rag-meta-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .rag-pill {
+            font-size: 11px;
+            font-weight: 700;
+            color: #A7F3D0;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rag-pill.danger {
+            color: #FECDD3;
+            background: rgba(244, 63, 94, 0.12);
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+
+        .result-preview-card {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .result-tag {
+            font-size: 12px;
+            font-weight: 800;
+            color: #F43F5E;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .result-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+        }
+
+        .result-match {
+            font-size: 13px;
+            color: #FBBF24;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .legal-doc-snippet {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #94A3B8;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .doc-action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: #CBD5E1;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Studio Meta Numbers */
+        .meta-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(13, 20, 38, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+            background: rgba(20, 32, 60, 0.7);
+        }
+
+        .stat-number {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFFFFF 0%, #34D399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section Commons */
+        section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #34D399;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            word-break: keep-all;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-body);
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* 3-Track / Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(16, 185, 129, 0.1);
+        }
+
+        .feature-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #34D399;
+            margin-bottom: 22px;
+        }
+
+        .feature-icon-wrap.rose {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: rgba(244, 63, 94, 0.3);
+            color: #FB7185;
+        }
+
+        .feature-icon-wrap.amber {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #FBBF24;
+        }
+
+        .feature-icon-wrap.cyan {
+            background: rgba(6, 182, 212, 0.15);
+            border-color: rgba(6, 182, 212, 0.3);
+            color: #22D3EE;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-text {
+            font-size: 14.5px;
+            color: var(--text-body);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .feature-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #94A3B8;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* 4-Step Pipeline */
+        .pipeline-card {
+            background: rgba(10, 16, 32, 0.8);
+            border: 1px solid var(--border-card);
+            border-radius: 24px;
+            padding: 48px 36px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .pipeline-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 36px;
+        }
+
+        .pipe-step-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 24px 20px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .pipe-step-item:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+            background: rgba(20, 32, 60, 0.7);
+        }
+
+        .pipe-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: #34D399;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .pipe-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+
+        .pipe-desc {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* Synergy Grid */
+        .two-track-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .track-card {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .track-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Bottom CTA */
+        .bottom-cta-section {
+            padding: 80px 0 100px 0;
+        }
+
+        .cta-banner {
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15) 0%, rgba(5, 8, 16, 0.95) 100%), rgba(10, 16, 32, 0.85);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 28px;
+            padding: 64px 40px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(16, 185, 129, 0.2);
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            word-break: keep-all;
+        }
+
+        .cta-banner p {
+            font-size: 16px;
+            color: var(--text-body);
+            max-width: 640px;
+            margin: 0 auto 36px auto;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* Footer */
+        footer.site-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(3, 6, 14, 0.95);
+            padding: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-heading);
+        }
+
+        .footer-brand img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 960px) {
+            .mockup-body {
+                grid-template-columns: 1fr;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .two-track-grid {
+                grid-template-columns: 1fr;
+            }
+            .meta-stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pipeline-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-link {
+                display: none;
+            }
+            .studio-pill {
+                display: none;
+            }
+            .pipeline-steps {
+                grid-template-columns: 1fr;
+            }
+            .hero-cta-group {
+                flex-direction: column;
+            }
+            .footer-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        /* ========================================================
+           Auth Gate Modal Styles
+           ======================================================== */
+        .auth-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 16, 0.94);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-gate-card {
+            width: 100%;
+            max-width: 440px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 16, 32, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(16, 185, 129, 0.2);
+            position: relative;
+            animation: authFadeIn 0.35s ease;
+        }
+
+        @keyframes authFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .auth-gate-logo-wrap {
+            margin-bottom: 20px;
+        }
+
+        .auth-gate-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.8));
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 9999px;
+            padding: 5px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #34D399;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            font-size: 13px;
+            color: #94A3B8;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .auth-input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .auth-input-wrapper input {
+            width: 100%;
+            height: 52px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0 16px 0 44px;
+            font-size: 15px;
+            color: #FFFFFF;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .auth-input-wrapper input:focus {
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .auth-input-wrapper input.error {
+            border-color: #EF4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .auth-error-msg {
+            color: #F87171;
+            font-size: 12px;
+            min-height: 18px;
+            margin-bottom: 14px;
+            text-align: left;
+            padding-left: 4px;
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+        }
+
+        .auth-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(16, 185, 129, 0.5);
+            filter: brightness(1.08);
+        }
+
+        .auth-gate-footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .auth-gate-footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            border-bottom: 1px dotted #475569;
+            transition: color 0.2s;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .auth-gate-footer a:hover {
+            color: #34D399;
+            border-bottom-color: #34D399;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Access Gate Modal (Restricted) -->
+    <div id="auth-gate" class="auth-gate-overlay">
+        <div class="auth-gate-card">
+            <div class="auth-gate-logo-wrap">
+                <img src="/logo_transparent.png" alt="Trinity Core Labs" class="auth-gate-logo">
+            </div>
+
+            <div class="auth-badge">
+                <i class="fa-solid fa-lock"></i>
+                <span>RESTRICTED ACCESS</span>
+            </div>
+
+            <h2 class="auth-title">Project #04: StoreCheck</h2>
+            <p class="auth-subtitle">
+                본 프로젝트는 승인된 관계자에게만 열람이 제한되어 있습니다.<br>
+                액세스 키(Access Key)를 입력해 주세요.
+            </p>
+
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div class="auth-input-wrapper">
+                    <i class="fa-solid fa-key auth-input-icon"></i>
+                    <input type="password" id="auth-key-input" placeholder="액세스 키 입력" autocomplete="off" autofocus required>
+                </div>
+
+                <p id="auth-error-msg" class="auth-error-msg"></p>
+
+                <button type="submit" id="auth-submit-btn" class="auth-submit-btn">
+                    <span>잠금 해제 (Unlock)</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-gate-footer">
+                <p>액세스 권한 및 열람 문의</p>
+                <a href="mailto:contact@trinitycorelabs.com">contact@trinitycorelabs.com</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            var input = document.getElementById('auth-key-input');
+            var errorMsg = document.getElementById('auth-error-msg');
+            var val = (input.value || '').trim();
+
+            if (val === 'TCL2026') {
+                try {
+                    sessionStorage.setItem('tcl_project_key', 'TCL2026');
+                } catch (err) {}
+
+                var gate = document.getElementById('auth-gate');
+                gate.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                gate.style.opacity = '0';
+                gate.style.pointerEvents = 'none';
+                document.body.classList.add('authenticated');
+
+                setTimeout(function() {
+                    gate.remove();
+                }, 300);
+            } else {
+                input.classList.remove('error');
+                void input.offsetWidth;
+                input.classList.add('error');
+                errorMsg.textContent = '액세스 키가 올바르지 않습니다. 다시 입력해 주세요.';
+                input.value = '';
+            }
+        }
+    </script>
+
+    <!-- Ambient Glow Background -->
+    <div class="ambient-glow">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="/landing.html" class="brand-link">
+                    <img src="/logo_transparent.png" alt="Trinity Core Labs" class="brand-logo">
+                    <span>Trinity Core Labs</span>
+                    <span class="studio-pill">Project #04</span>
+                </a>
+                <div class="nav-actions">
+                    <a href="/autosound" class="nav-link" style="color: #60A5FA;">#01 AutoSound</a>
+                    <a href="/aptapt/intro" class="nav-link" style="color: #34D399;">#02 Aptapt</a>
+                    <a href="/claimguard" class="nav-link" style="color: #A5B4FC;">#03 ClaimGuard</a>
+                    <a href="#features" class="nav-link">3대 킬러 기능</a>
+                    <a href="#architecture" class="nav-link">기술 아키텍처</a>
+                    <a href="https://storecheck.trinitycorelabs.com" target="_blank" rel="noopener noreferrer" class="btn-launch">
+                        <span>라이브 서비스 실행</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="badge-hero">
+                    <span class="pulse-dot"></span>
+                    <span>TRINITY VENTURE STUDIO · PRODUCTION LAUNCH · PROJECT #04</span>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="hero-title-main">창업 전 30초, '왜 망하는 자리인가'를 진단하는</span>
+                    <span class="hero-title-sub">
+                        StoreCheck (스토어체크)
+                    </span>
+                </h1>
+
+                <p class="hero-desc">
+                    소상공인시장진흥공단 상권정보 & 국토부 건축물대장·상업용 임대료 공공데이터 전수 동기화.<br>
+                    반경 500m 폐업률 분석, 연쇄 폐업 '자리 징크스(G-Index)', 위반건축물 레드플래그 오토 오딧, 생존 런웨이 시뮬레이션까지 1장으로 끝내는 상권 리스크 감지 백신.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="https://storecheck.trinitycorelabs.com" target="_blank" rel="noopener noreferrer" class="btn-primary-glow">
+                        <i class="fa-solid fa-shield-virus"></i>
+                        <span>지금 바로 상권 리스크 진단하기 (Live)</span>
+                    </a>
+                    <a href="#architecture" class="btn-secondary">
+                        <i class="fa-solid fa-database"></i>
+                        <span>PostGIS 공간 쿼리 명세 보기</span>
+                    </a>
+                </div>
+
+                <!-- Interactive Mockup Card -->
+                <div class="mockup-container">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="mockup-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>LIVE ENGINE: PostGIS 500m Spatial X-Ray & G-Index Model</span>
+                        </div>
+                    </div>
+
+                    <div class="mockup-body">
+                        <!-- Scenario Input Box -->
+                        <div class="scenario-box">
+                            <div>
+                                <div class="scenario-meta">
+                                    <div class="scenario-title">
+                                        <i class="fa-solid fa-location-crosshairs" style="color: #34D399;"></i>
+                                        <span>주소 기반 500m 반경 X-Ray 상권 진단</span>
+                                    </div>
+                                    <span style="color: #A7F3D0; font-size: 11px; font-weight: 700; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px;">반경 500m 타겟존</span>
+                                </div>
+
+                                <div class="scenario-text">
+                                    "서울 강남구 테헤란로 152 (역삼동) 지상 1층 103호 / 카페·디저트 업종 창업 검토 중 (가용 자본금 8,000만원 / 예상 월 임대료 450만원)"
+                                </div>
+                            </div>
+
+                            <div class="rag-meta-pills">
+                                <span class="rag-pill"><i class="fa-solid fa-check"></i> 소진공 점포 이력 전수 매칭</span>
+                                <span class="rag-pill danger"><i class="fa-solid fa-skull"></i> 자리 징크스: 최근 3년 4회 폐업</span>
+                                <span class="rag-pill"><i class="fa-solid fa-check"></i> 국토부 상업용 임대료 비교</span>
+                                <span class="rag-pill"><i class="fa-solid fa-check"></i> 건축물대장 레드플래그 클린</span>
+                            </div>
+                        </div>
+
+                        <!-- Result Card -->
+                        <div class="result-preview-card">
+                            <div class="result-tag">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <span>RISK AUDIT · 상권 종합 위험 등급 [주의 · DANGER]</span>
+                            </div>
+                            <div class="result-title">연쇄 폐업 자리 징크스 (G-Index: 82점) 감지</div>
+                            <div class="result-match">동일 호실 평균 생존 기간 7.8개월 · 권리금 지불 절대 주의 권고</div>
+
+                            <div class="legal-doc-snippet">
+                                [생존 런웨이 & BEP 시뮬레이션 요약]<br>
+                                • 가용 자본금: 8,000만원 (초기 인테리어 매몰 5,000만원)<br>
+                                • 잔여 운영 버퍼: 3,000만원 / 월 고정비(임대료+인건비): 680만원<br>
+                                • 보수적 생존 런웨이: 4.4개월 (일 손익분기점 매출: 78만원)
+                            </div>
+
+                            <div class="doc-action-bar">
+                                <span>📊 금융권 제출용 1-Page PDF 종합 리포트 즉시 출력</span>
+                                <span style="color: #34D399;"><i class="fa-solid fa-bolt"></i> 1.2s Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Studio Meta Numbers -->
+                <div class="meta-stats-row">
+                    <div class="stat-card">
+                        <div class="stat-number">500m</div>
+                        <div class="stat-label">PostGIS ST_DWithin Radius X-Ray</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">G-INDEX</div>
+                        <div class="stat-label">Graveyard Spot Detection Model</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0-FLAG</div>
+                        <div class="stat-label">Auto Architectural Ledger Audit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1-PAGE</div>
+                        <div class="stat-label">Instant PDF Risk Report Export</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Killer Features Section -->
+        <section id="features">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Key Value Proposition</span>
+                    <h2 class="section-title">"얼마나 버는가"가 아니라<br>"왜 망하는가"를 짚어내는 3대 킬러 기능</h2>
+                    <p class="section-desc">
+                        기존 상권 분석 플랫폼의 장밋빛 매출 추정을 배제하고, 소상공인의 생존을 위협하는 숨겨진 리스크를 선제 격리합니다.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap rose">
+                            <i class="fa-solid fa-skull"></i>
+                        </div>
+                        <h3 class="feature-title">킬러 기능 1: '자리 징크스' (Graveyard Spot) 추적</h3>
+                        <p class="feature-text">
+                            같은 상권이라도 유독 사각지대나 동선 단절로 인해 임차인이 6개월~1년 주기로 계속 바뀌는 자리가 있습니다. 건축물관리번호(bldMgtNo)와 층/호실을 결합한 공간 식별자(location_id)를 생성하여 연쇄 폐업 횟수와 평균 생존 주기를 G-Index로 수치화합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">G-Index Scoring</span>
+                            <span class="feature-tag">Chained Closure Tracker</span>
+                            <span class="feature-tag">location_id Spatial Key</span>
+                            <span class="feature-tag">Graveyard Danger Alert</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap amber">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="feature-title">킬러 기능 2: 건축물 행정 리스크 '레드플래그' 오토 오딧</h3>
+                        <p class="feature-text">
+                            계약 직전까지 임대인이 숨기는 불법 증축·위반건축물 등재 여부, 용도지역별 정화조 용량 및 정화구역 제한, 직전 영업장의 영업정지 등 행정처분 승계 위험을 공공 건축물대장 오픈 API로 3초 만에 자동 전수 감사(Audit)합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">Architectural Ledger Audit</span>
+                            <span class="feature-tag">Violation Building Detection</span>
+                            <span class="feature-tag">Zoning Verification</span>
+                            <span class="feature-tag">Administrative Risk Purge</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap emerald">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h3 class="feature-title">킬러 기능 3: 시드머니 기준 '생존 런웨이' & BEP 계산기</h3>
+                        <p class="feature-text">
+                            예비 창업자의 총 가용자본금, 인테리어/가맹비 등 초기 매몰비용, 월 임대료와 고정 인건비를 입력받아, 매출이 0원일 때 버틸 수 있는 '최악의 런웨이'와 손익분기점(BEP) 달성을 위한 일/월 최소 필요 매출액을 과학적으로 산출합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">Survival Runway Calc</span>
+                            <span class="feature-tag">BEP Breakeven Engine</span>
+                            <span class="feature-tag">Fixed Cost Stress-Test</span>
+                            <span class="feature-tag">Realistic Financial Planning</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap cyan">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="feature-title">F1~F4: 주소 지오코딩 & 국토부 임대료 실거래가 연동</h3>
+                        <p class="feature-text">
+                            도로명/지번 주소 입력 즉시 위·경도 정밀 변환 후 Leaflet 인터랙티브 맵에 500m 분석 반경을 렌더링합니다. 국토부 상업용 부동산 실거래가 임대료와 소진공 점포 상태(영업중/1년내신규/1년내폐업)를 오버레이하여 금융권 제출용 1-Page PDF로 원클릭 출력합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">Address Geocoder</span>
+                            <span class="feature-tag">MOLIT Commercial Rent API</span>
+                            <span class="feature-tag">Leaflet / Kakao Maps</span>
+                            <span class="feature-tag">1-Page PDF Export</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Architecture Section -->
+        <section id="architecture" style="background: rgba(10, 16, 32, 0.4); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Data Pipeline & Engineering</span>
+                    <h2 class="section-title">PostGIS 공간 인덱싱 기반의<br>초고속 비동기 배치 파이프라인</h2>
+                    <p class="section-desc">
+                        공공데이터포털(data.go.kr)의 지연 응답과 월별 갱신 주기를 극복하기 위해 비동기 수집 워커와 PostGIS 공간 쿼리를 결합했습니다.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="feature-title">Python FastAPI & 비동기 Ingestion Worker</h3>
+                        <p class="feature-text">
+                            Python asyncio와 httpx를 활용하여 시군구코드(signguCd) 및 업종분류코드(indsLclsCd) 단위로 분할된 대용량 공공데이터를 비동기 병렬 수집합니다. Pydantic 2.0 스키마 검증을 거쳐 데이터 결함을 원천 차단합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">Python FastAPI</span>
+                            <span class="feature-tag">asyncio + httpx</span>
+                            <span class="feature-tag">Pydantic v2 Schema</span>
+                            <span class="feature-tag">Async Worker</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap cyan">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="feature-title">PostgreSQL 15 + PostGIS 공간 데이터베이스</h3>
+                        <p class="feature-text">
+                            GIST 공간 인덱스를 활용하여 `ST_DWithin` 반경 500m 공간 쿼리를 0.05초 만에 처리합니다. 매월 갱신되는 점포 데이터는 `INSERT ... ON CONFLICT (bizes_id) DO UPDATE` 업서트 전략으로 무중단 동기화됩니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">PostgreSQL 15</span>
+                            <span class="feature-tag">PostGIS GIST Index</span>
+                            <span class="feature-tag">ST_DWithin 500m Query</span>
+                            <span class="feature-tag">Zero-Downtime Upsert</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap purple">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3 class="feature-title">Next.js 15 App Router & Leaflet 동적 렌더링</h3>
+                        <p class="feature-text">
+                            Next.js 15의 SSR 환경에서 브라우저 전용 Leaflet 맵 객체가 충돌하지 않도록 Dynamic Import 컴포넌트 래퍼를 구축했습니다. 점포 유형별 커스텀 SVG 마커 클러스터링과 반응형 사이드패널을 매끄럽게 연결합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">Next.js 15 App Router</span>
+                            <span class="feature-tag">Leaflet Dynamic Wrapper</span>
+                            <span class="feature-tag">Custom SVG Markers</span>
+                            <span class="feature-tag">Tailwind CSS Responsive</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon-wrap amber">
+                            <i class="fa-solid fa-print"></i>
+                        </div>
+                        <h3 class="feature-title">금융권·소상공인진흥공단 제출용 1-Page PDF 엔진</h3>
+                        <p class="feature-text">
+                            소상공인 정책자금 신청, 청년창업 사관학교, 시중은행 소상공인 대출 심사에 즉시 첨부할 수 있는 A4 1페이지 규격의 상권 리스크 진단서와 생존율 분석표를 웹 브라우저 네이티브 인쇄 규격(@media print)으로 렌더링합니다.
+                        </p>
+                        <div class="feature-tag-list">
+                            <span class="feature-tag">One-Page PDF Report</span>
+                            <span class="feature-tag">Bank Submission Ready</span>
+                            <span class="feature-tag">Native Print CSS</span>
+                            <span class="feature-tag">Standardized Risk Metrics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4-Step User Workflow Section -->
+        <section id="workflow">
+            <div class="container">
+                <div class="pipeline-card">
+                    <div class="section-header" style="margin-bottom: 24px;">
+                        <span class="section-eyebrow">End-to-End Workflow</span>
+                        <h2 class="section-title">주소 입력부터 리포트 발급까지<br>단 4단계 상권 오딧 프로세스</h2>
+                        <p class="section-desc">
+                            복잡한 부동산 공문서나 통계청 데이터를 읽지 못해도 누구나 30초 만에 상권의 급소를 파악합니다.
+                        </p>
+                    </div>
+
+                    <div class="pipeline-steps">
+                        <div class="pipe-step-item">
+                            <div class="pipe-num">STEP 01</div>
+                            <div class="pipe-title">주소 & 업종 선택</div>
+                            <div class="pipe-desc">
+                                검토 중인 점포의 도로명/지번 주소와 층·호실, 희망 창업 업종(카페, 음식점, 미용 등)을 입력합니다.
+                            </div>
+                        </div>
+
+                        <div class="pipe-step-item">
+                            <div class="pipe-num">STEP 02</div>
+                            <div class="pipe-title">가용 자본 & 고정비 입력</div>
+                            <div class="pipe-desc">
+                                총 시드머니, 인테리어 매몰비용, 예상 월 임대료와 인건비를 기입하여 생존 런웨이 시뮬레이션을 준비합니다.
+                            </div>
+                        </div>
+
+                        <div class="pipe-step-item">
+                            <div class="pipe-num">STEP 03</div>
+                            <div class="pipe-title">500m 반경 X-Ray 진단</div>
+                            <div class="pipe-desc">
+                                PostGIS 공간 쿼리로 주변 개·폐업 밀집도, 자리 징크스(G-Index), 건축물대장 레드플래그를 즉시 판정합니다.
+                            </div>
+                        </div>
+
+                        <div class="pipe-step-item">
+                            <div class="pipe-num">STEP 04</div>
+                            <div class="pipe-title">1-Page PDF 리포트 출력</div>
+                            <div class="pipe-desc">
+                                위험 등급 판정표, 생존 런웨이 개월 수, BEP 일매출이 정리된 공식 분석 리포트를 PDF로 즉각 출력합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Synergy Section -->
+        <section id="synergy">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Trinity Core Labs Ecosystem</span>
+                    <h2 class="section-title">4대 포트폴리오의<br>강력한 가치 사슬 플라이휠</h2>
+                    <p class="section-desc">
+                        트리니티 코어 랩스의 빌딩 자산들이 서로 연결되어 소상공인과 모빌리티, 부동산 생태계를 완성합니다.
+                    </p>
+                </div>
+
+                <div class="two-track-grid">
+                    <div class="track-card">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                            <span style="font-size: 11px; font-weight: 800; background: #2563EB; color: #FFFFFF; padding: 3px 8px; border-radius: 6px;">#01 AutoSound</span>
+                            <span style="color: #60A5FA; font-weight: 700; font-size: 13.5px;">차량 정비소 상권 매핑</span>
+                        </div>
+                        <h4 style="font-size: 17px; color: #FFFFFF; font-weight: 800; margin-bottom: 10px;">카센터·공임나라 입지 적합성 검증</h4>
+                        <p style="font-size: 13.5px; color: var(--text-body); line-height: 1.6; word-break: keep-all;">
+                            AutoSound로 진단된 차량들이 향하는 주변 1급·2급 정비소 및 제휴 공임나라의 상권 포화도와 정비 수요 집중도를 StoreCheck으로 교차 검증합니다.
+                        </p>
+                    </div>
+
+                    <div class="track-card">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                            <span style="font-size: 11px; font-weight: 800; background: #059669; color: #FFFFFF; padding: 3px 8px; border-radius: 6px;">#02 Aptapt</span>
+                            <span style="color: #34D399; font-weight: 700; font-size: 13.5px;">부동산 공공데이터 파이프라인</span>
+                        </div>
+                        <h4 style="font-size: 17px; color: #FFFFFF; font-weight: 800; margin-bottom: 10px;">대단지 배후세대 & 상업용 임대료 융합</h4>
+                        <p style="font-size: 13.5px; color: var(--text-body); line-height: 1.6; word-break: keep-all;">
+                            Aptapt에서 검증된 국토교통부 대용량 오픈 API 정제 인프라와 배후 대단지 아파트 세대수 데이터를 StoreCheck 상권 분석 엔진에 그대로 연동합니다.
+                        </p>
+                    </div>
+
+                    <div class="track-card">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                            <span style="font-size: 11px; font-weight: 800; background: #4F46E5; color: #FFFFFF; padding: 3px 8px; border-radius: 6px;">#03 ClaimGuard</span>
+                            <span style="color: #A5B4FC; font-weight: 700; font-size: 13.5px;">상가 임대차 법률 분쟁 직결</span>
+                        </div>
+                        <h4 style="font-size: 17px; color: #FFFFFF; font-weight: 800; margin-bottom: 10px;">권리금 회수 방해 및 원상복구 최고장</h4>
+                        <p style="font-size: 13.5px; color: var(--text-body); line-height: 1.6; word-break: keep-all;">
+                            StoreCheck에서 폐업 또는 이전이 결정된 소상공인이 임대인과의 권리금 회수 방해나 부당 원상복구 분쟁 발생 시 ClaimGuard 법적 최고장으로 즉각 방어합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Big CTA Section -->
+        <section class="bottom-cta-section">
+            <div class="container">
+                <div class="cta-banner">
+                    <h2>창업 자금 1억 원을 날리기 전, 30초의 백신을 맞으세요</h2>
+                    <p>화려한 호가나 뜬구름 잡는 매출 예측 대신, 공공데이터가 말해주는 냉정한 폐업 이력과 생존 런웨이를 확인하세요.</p>
+                    <a href="https://storecheck.trinitycorelabs.com" target="_blank" rel="noopener noreferrer" class="btn-primary-glow">
+                        <i class="fa-solid fa-shield-virus"></i>
+                        <span>StoreCheck 라이브 상권 분석 실행하기 🚀</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="/logo_transparent.png" alt="Trinity Core Labs">
+                    <span>Trinity Core Labs</span>
+                    <span style="color: var(--text-muted); font-weight: 400; font-size: 13px;">| An Agile AI Studio Making the Impossible Possible</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted); text-align: right;" class="footer-meta-block">
+                    <div style="margin-bottom: 4px;">
+                        Inquiries: <a href="mailto:contact@trinitycorelabs.com" style="color: #94A3B8; text-decoration: none; border-bottom: 1px dotted #64748B;">contact@trinitycorelabs.com</a>
+                    </div>
+                    <div>&copy; 2026 Trinity Core Labs. All rights reserved.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
